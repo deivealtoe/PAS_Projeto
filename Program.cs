@@ -34,6 +34,12 @@ namespace Projeto2
 
 
 
+            CarrinhoDeCompra carrinho = new CarrinhoDeCompra();
+
+            carrinho.adicionarItem(idc);
+            //carrinho.removerItem(1);
+
+            Console.WriteLine(carrinho.getResumoCarrinho());
 
         }
     }
