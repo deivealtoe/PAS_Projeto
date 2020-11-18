@@ -12,7 +12,7 @@ namespace Projeto2
 
             Produto p = new Produto(50, "Descrição", 10.55, 1.99);
 
-            p.setCodigo(1);
+            p.setCodigo(0);
             p.setDescricao("Outra Descrição");
             p.setPeso(5.55);
             p.setValorUnitario(2.50);
@@ -40,6 +40,9 @@ namespace Projeto2
             //carrinho.removerItem(1);
 
             Console.WriteLine(carrinho.getResumoCarrinho());
+
+
+            Console.WriteLine(Produto.armazenaCadastroDoProduto(p));
 
         }
     }

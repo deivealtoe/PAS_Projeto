@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Projeto2
 {
     class Produto
@@ -42,6 +44,30 @@ namespace Projeto2
         }
         public void setValorUnitario(double valorUnitario) {
             this.valorUnitario = valorUnitario;
+        }
+
+
+        public static bool verificaSeCodigoProcuradoExiste(int codigoProcurado) {
+            List<int> listaDeCodigos = LerArquivoProduto.getCodigosDosProdutos();
+
+            return listaDeCodigos.Exists(codigo => codigo == codigoProcurado);
+        }
+
+        public static bool armazenaCadastroDoProduto(Produto produto) {
+            string linhaCompleta = "";
+
+            linhaCompleta += produto.getCodigo() + ";";
+            linhaCompleta += produto.getDescricao() + ";";
+            linhaCompleta += produto.getPeso() + ";";
+            linhaCompleta += produto.getValorUnitario();
+
+            if (Produto.verificaSeCodigoProcuradoExiste(produto.getCodigo())) {
+                return false;
+            }
+
+            EscreverArquivoProduto.escreverNoArquivoDeCadastro(linhaCompleta);
+
+            return true;
         }
 
     }
