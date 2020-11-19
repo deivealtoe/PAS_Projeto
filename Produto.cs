@@ -10,6 +10,7 @@ namespace Projeto2
         private double peso;
         private double valorUnitario;
 
+        static ArquivoProduto aP = new ArquivoProduto();
 
         public Produto (int codigo, string descricao, double peso, double valorUnitario) {
             this.codigo = codigo;
@@ -17,7 +18,6 @@ namespace Projeto2
             this.peso = peso;
             this.valorUnitario = valorUnitario;
         }
-
 
         public int getCodigo() {
             return this.codigo;
@@ -31,7 +31,6 @@ namespace Projeto2
         public double getValorUnitario() {
             return this.valorUnitario;
         }
-        
 
         public void setCodigo(int codigo) {
             this.codigo = codigo;
@@ -48,12 +47,13 @@ namespace Projeto2
 
 
         public static bool verificaSeCodigoProcuradoExiste(int codigoProcurado) {
-            List<int> listaDeCodigos = LerArquivoProduto.getCodigosDosProdutos();
+            List<int> listaDeCodigos = ArquivoProduto.getCodigosDosProdutos();
 
             return listaDeCodigos.Exists(codigo => codigo == codigoProcurado);
         }
 
         public static bool armazenaCadastroDoProduto(Produto produto) {
+
             string linhaCompleta = "";
 
             linhaCompleta += produto.getCodigo() + ";";
@@ -65,9 +65,21 @@ namespace Projeto2
                 return false;
             }
 
-            EscreverArquivoProduto.escreverNoArquivoDeCadastro(linhaCompleta);
+            aP.EscreverNoArquivo(linhaCompleta);
 
             return true;
+        }
+
+        public string mostrarProdutosCadastrados(){
+
+            List<string> listaProdutos = aP.LerArquivo();
+            string produto = "";
+
+            foreach(string pd in listaProdutos){
+                produto += pd;
+            }
+
+            return produto;
         }
 
     }

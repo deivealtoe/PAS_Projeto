@@ -8,8 +8,9 @@ namespace Projeto2
         private string sobrenome;
         private string razaoSocial;
         private string cpfCnpj;
+        private enum Tipo{Cliente, Fornecedor, Colaborador};
+        private Tipo tipo;
         private Endereco endereco;
-
 
 
         public Pessoa(int codigo, string nome, string sobrenome, string cpfCnpj, Endereco endereco) {

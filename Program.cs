@@ -6,9 +6,6 @@ namespace Projeto2
     {
         static void Main(string[] args)
         {
-            Endereco e = new Endereco();
-
-
 
             Produto p = new Produto(50, "Descrição", 10.55, 1.99);
 
@@ -36,13 +33,48 @@ namespace Projeto2
 
             CarrinhoDeCompra carrinho = new CarrinhoDeCompra();
 
+            Estoque e = new Estoque(p, 50, 20);
+
             carrinho.adicionarItem(idc);
             //carrinho.removerItem(1);
 
             Console.WriteLine(carrinho.getResumoCarrinho());
 
+            Console.WriteLine(Produto.armazenaCadastroDoProduto(p));
+
+            e.calcularEstoque();
+
+            Console.WriteLine(e.armazenaProdutoEstoque(p));
+
+            p.setCodigo(2);
+            p.setDescricao("Descrição");
+            p.setPeso(2.10);
+            p.setValorUnitario(6);
+            
+            Console.WriteLine(Produto.armazenaCadastroDoProduto(p));
+
+            e.setProduto(p);
+            e.setQtdTotal(30);
+            e.setQtdReservada(29);
+
+            e.calcularEstoque();
+
+            Console.WriteLine(e.armazenaProdutoEstoque(p));
+
+            p.setCodigo(4);
+            p.setDescricao("Descrição");
+            p.setPeso(3);
+            p.setValorUnitario(9);
 
             Console.WriteLine(Produto.armazenaCadastroDoProduto(p));
+
+            e.setProduto(p);
+            e.setQtdTotal(100);
+            e.setQtdReservada(20);
+
+            e.calcularEstoque();
+
+            Console.WriteLine(e.armazenaProdutoEstoque(p));
 
         }
     }
