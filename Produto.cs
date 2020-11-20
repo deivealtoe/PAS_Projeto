@@ -4,7 +4,6 @@ namespace Projeto2
 {
     class Produto
     {
-
         private int codigo;
         private string descricao;
         private double peso;
@@ -74,9 +73,18 @@ namespace Projeto2
 
             List<string> listaProdutos = aPR.LerArquivo();
             string produto = "";
+            string codigo = "";
+            string descricao = "";
+            string peso = "";
+            string valorUnitario = "";
 
             foreach(string pd in listaProdutos){
-                produto += pd;
+                codigo = pd.Split(';')[0];
+                descricao = pd.Split(';')[1];
+                peso = pd.Split(';')[2];
+                valorUnitario = pd.Split(';')[3];
+
+                produto += "\n| Codigo: " + codigo + " - Descrição: " + descricao + " - Peso: " + peso + " - Valor Unitário: " + valorUnitario + " |";
             }
 
             return produto;

@@ -4,7 +4,6 @@ namespace Projeto2
 {
     class Pessoa
     {
-
         private int codigo;
         private string nome;
         private string sobrenome;
@@ -120,8 +119,6 @@ namespace Projeto2
 
             return true;
         }
-
-
 
     }
 }

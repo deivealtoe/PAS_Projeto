@@ -81,7 +81,9 @@ namespace Projeto2
             Pessoa pe = new Pessoa(0,"Jefferson","Souza","123.164.123-23", Pessoa.Tipo.Cliente, en);
             
             Console.WriteLine(Pessoa.armazenaCadastroDaPessoa(pe));
-            
+
+
+            Console.WriteLine(p.mostrarProdutosCadastrados());
 
         }
     }

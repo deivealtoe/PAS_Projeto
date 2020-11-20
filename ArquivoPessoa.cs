@@ -37,7 +37,5 @@ namespace Projeto2
             return cpfCnpj;
         }
 
-
-
     }
 }
