@@ -1,6 +1,6 @@
 namespace Projeto2
 {
-    class PedidoDeVenda
+    class PedidoDeVenda : Pedido
     {
         private Pessoa cliente;
     }

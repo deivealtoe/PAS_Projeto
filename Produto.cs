@@ -10,7 +10,7 @@ namespace Projeto2
         private double peso;
         private double valorUnitario;
 
-        static ArquivoProduto aP = new ArquivoProduto();
+        static ArquivoProduto aPR = new ArquivoProduto();
 
         public Produto (int codigo, string descricao, double peso, double valorUnitario) {
             this.codigo = codigo;
@@ -65,14 +65,14 @@ namespace Projeto2
                 return false;
             }
 
-            aP.EscreverNoArquivo(linhaCompleta);
+            aPR.EscreverNoArquivo(linhaCompleta);
 
             return true;
         }
 
         public string mostrarProdutosCadastrados(){
 
-            List<string> listaProdutos = aP.LerArquivo();
+            List<string> listaProdutos = aPR.LerArquivo();
             string produto = "";
 
             foreach(string pd in listaProdutos){

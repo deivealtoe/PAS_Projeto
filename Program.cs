@@ -76,6 +76,13 @@ namespace Projeto2
 
             Console.WriteLine(e.armazenaProdutoEstoque(p));
 
+            Endereco en = new Endereco("Sei lá", "Laranjeiras", "Serra", "Brasil");
+
+            Pessoa pe = new Pessoa(0,"Jefferson","Souza","123.164.123-23", Pessoa.Tipo.Cliente, en);
+            
+            Console.WriteLine(Pessoa.armazenaCadastroDaPessoa(pe));
+            
+
         }
     }
 }
