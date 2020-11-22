@@ -16,16 +16,16 @@ namespace Projeto2
         public override List<string> LerArquivo() {
             string[] linhas = File.ReadAllLines("./_arquivos/pessoas.txt");
 
-            List<string> produtos = new List<string>();
+            List<string> pessoas = new List<string>();
 
             foreach (string linha in linhas) {
-                produtos.Add(linha.Split('\n')[0]);
+                pessoas.Add(linha.Split('\n')[0]);
             }
 
-            return produtos;
+            return pessoas;
         }
 
-        public static List<string> getCpfCnpjDasPessoas() {
+        public List<string> getCpfCnpjDasPessoas() {
             string[] linhas = File.ReadAllLines("./_arquivos/pessoas.txt");
 
             List<string> cpfCnpj = new List<string>();

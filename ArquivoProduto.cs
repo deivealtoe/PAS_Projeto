@@ -26,7 +26,7 @@ namespace Projeto2
             return produtos;
         }
 
-        public static List<int> getCodigosDosProdutos() {
+        public List<int> getCodigosDosProdutos() {
             string[] linhas = File.ReadAllLines("./_arquivos/cadastro_de_produtos.txt");
 
             List<int> codigos = new List<int>();

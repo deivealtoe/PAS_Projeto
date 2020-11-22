@@ -15,6 +15,10 @@ namespace Projeto2
             this.itensDeCompra = itensDeCompra;
         }
 
+        public List<ItemDeCompra> getItensdoCarrinho(){
+            return this.itensDeCompra;
+        }
+
 
         public double getValorTotalDoCarrinho() {
             double valorTotalDoCarrinho = 0;

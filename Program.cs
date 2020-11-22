@@ -19,8 +19,6 @@ namespace Projeto2
             Console.WriteLine(p.getPeso());
             Console.WriteLine(p.getValorUnitario());
 
-
-
             ItemDeCompra idc = new ItemDeCompra(p, 5);
 
             idc.setQtdCompra(30);
@@ -28,8 +26,6 @@ namespace Projeto2
             Console.WriteLine(idc.getProduto().getDescricao());
             Console.WriteLine(idc.getQtdCompra());
             Console.WriteLine(idc.getValorTotal());
-
-
 
             CarrinhoDeCompra carrinho = new CarrinhoDeCompra();
 
@@ -40,7 +36,7 @@ namespace Projeto2
 
             Console.WriteLine(carrinho.getResumoCarrinho());
 
-            Console.WriteLine(Produto.armazenaCadastroDoProduto(p));
+            Console.WriteLine(p.armazenaCadastroDoProduto());
 
             e.calcularEstoque();
 
@@ -51,7 +47,7 @@ namespace Projeto2
             p.setPeso(2.10);
             p.setValorUnitario(6);
             
-            Console.WriteLine(Produto.armazenaCadastroDoProduto(p));
+            Console.WriteLine(p.armazenaCadastroDoProduto());
 
             e.setProduto(p);
             e.setQtdTotal(30);
@@ -66,7 +62,7 @@ namespace Projeto2
             p.setPeso(3);
             p.setValorUnitario(9);
 
-            Console.WriteLine(Produto.armazenaCadastroDoProduto(p));
+            Console.WriteLine(p.armazenaCadastroDoProduto());
 
             e.setProduto(p);
             e.setQtdTotal(100);
@@ -76,14 +72,18 @@ namespace Projeto2
 
             Console.WriteLine(e.armazenaProdutoEstoque(p));
 
-            Endereco en = new Endereco("Sei lá", "Laranjeiras", "Serra", "Brasil");
+            Endereco en = new Endereco("Sei lá", "Laranjeiras", "ES", "Serra", "Brasil");
 
             Pessoa pe = new Pessoa(0,"Jefferson","Souza","123.164.123-23", Pessoa.Tipo.Cliente, en);
             
-            Console.WriteLine(Pessoa.armazenaCadastroDaPessoa(pe));
+            Console.WriteLine(pe.armazenaCadastroDaPessoa());
 
 
             Console.WriteLine(p.mostrarProdutosCadastrados());
+
+            PedidoDeCompra pDC = new PedidoDeCompra(1, false, carrinho, pe);
+
+            Console.WriteLine(pDC.ArmazenarPedido());
 
         }
     }

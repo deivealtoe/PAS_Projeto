@@ -1,9 +1,48 @@
 namespace Projeto2
 {
-    class Pedido
+    abstract class Pedido
     {
         private int codigo;
         private bool confirmado;
         private CarrinhoDeCompra carrinhoDeCompra;
+
+        public Pedido(int codigo, bool confirmado, CarrinhoDeCompra carrinhoDeCompra){
+
+            this.codigo = codigo;
+            this.confirmado = confirmado;
+            this.carrinhoDeCompra = carrinhoDeCompra;
+        }
+
+
+
+        public int getCodigo(){
+            return this.codigo;
+        }
+
+        public bool getConfirmado(){
+            return this.confirmado;
+        }
+
+        public CarrinhoDeCompra GetCarrinhoDeCompra(){
+            return this.carrinhoDeCompra;
+        }
+
+        public void setCodigo(int codigo){
+            this.codigo = codigo;
+        }
+
+        public void setConfirmado(bool confirmado){
+            this.confirmado = confirmado;
+        }
+
+        public void setCarrinhoDeCompra(CarrinhoDeCompra carrinhoDeCompra){
+            this.carrinhoDeCompra = carrinhoDeCompra;
+        }
+
+        public abstract bool ValidarPessoa(Pessoa pessoa);
+
+        public abstract bool ArmazenarPedido();
+
+
     }
 }

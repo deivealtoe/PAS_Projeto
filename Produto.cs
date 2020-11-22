@@ -46,21 +46,21 @@ namespace Projeto2
 
 
         public static bool verificaSeCodigoProcuradoExiste(int codigoProcurado) {
-            List<int> listaDeCodigos = ArquivoProduto.getCodigosDosProdutos();
+            List<int> listaDeCodigos = aPR.getCodigosDosProdutos();
 
             return listaDeCodigos.Exists(codigo => codigo == codigoProcurado);
         }
 
-        public static bool armazenaCadastroDoProduto(Produto produto) {
+        public bool armazenaCadastroDoProduto() {
 
             string linhaCompleta = "";
 
-            linhaCompleta += produto.getCodigo() + ";";
-            linhaCompleta += produto.getDescricao() + ";";
-            linhaCompleta += produto.getPeso() + ";";
-            linhaCompleta += produto.getValorUnitario();
+            linhaCompleta += this.getCodigo() + ";";
+            linhaCompleta += this.getDescricao() + ";";
+            linhaCompleta += this.getPeso() + ";";
+            linhaCompleta += this.getValorUnitario();
 
-            if (Produto.verificaSeCodigoProcuradoExiste(produto.getCodigo())) {
+            if (Produto.verificaSeCodigoProcuradoExiste(this.getCodigo())) {
                 return false;
             }
 
@@ -87,7 +87,7 @@ namespace Projeto2
                 produto += "\n| Codigo: " + codigo + " - Descrição: " + descricao + " - Peso: " + peso + " - Valor Unitário: " + valorUnitario + " |";
             }
 
-            return produto;
+            return produto+"\n";
         }
 
     }

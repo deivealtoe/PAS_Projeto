@@ -89,29 +89,30 @@ namespace Projeto2
             this.endereco = endereco;
         }
 
-        public static bool verificaSeCpfCnpjProcuradoExiste(string cpfCnpjProcurado) {
-            List<string> listaDeCpfCnpj = ArquivoPessoa.getCpfCnpjDasPessoas();
+        public bool verificaSeCpfCnpjProcuradoExiste(string cpfCnpjProcurado) {
+            List<string> listaDeCpfCnpj = aPE.getCpfCnpjDasPessoas();
 
             return listaDeCpfCnpj.Exists(cpfCnpj => cpfCnpj == cpfCnpjProcurado);
         }
 
 
-        public static bool armazenaCadastroDaPessoa(Pessoa pessoa) {
+        public bool armazenaCadastroDaPessoa() {
 
             string linhaCompleta = "";
 
-            linhaCompleta += pessoa.getCodigo() + ";";
-            linhaCompleta += pessoa.getNome() + ";";
-            linhaCompleta += pessoa.getSobrenome() + ";";
+            linhaCompleta += this.getCodigo() + ";";
+            linhaCompleta += this.getNome() + ";";
+            linhaCompleta += this.getSobrenome() + ";";
             //linhaCompleta += pessoa.getRazaoSocial() + ";";
-            linhaCompleta += pessoa.getCpfCnpj() + ";";
-            linhaCompleta += pessoa.tipo + ";";
-            linhaCompleta += pessoa.getEndereco().getEndereco() + ";";
-            linhaCompleta += pessoa.getEndereco().getBairro() + ";";
-            linhaCompleta += pessoa.getEndereco().getCidade() + ";";
-            linhaCompleta += pessoa.getEndereco().getPais();
+            linhaCompleta += this.getCpfCnpj() + ";";
+            linhaCompleta += this.tipo + ";";
+            linhaCompleta += this.getEndereco().getEndereco() + ";";
+            linhaCompleta += this.getEndereco().getBairro() + ";";
+            linhaCompleta += this.getEndereco().getEstado() + ";";
+            linhaCompleta += this.getEndereco().getCidade() + ";";
+            linhaCompleta += this.getEndereco().getPais();
 
-            if (Pessoa.verificaSeCpfCnpjProcuradoExiste(pessoa.getCpfCnpj())) {
+            if (verificaSeCpfCnpjProcuradoExiste(this.getCpfCnpj())) {
                 return false;
             }
 

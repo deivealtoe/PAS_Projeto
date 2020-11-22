@@ -41,7 +41,7 @@ namespace Projeto2
         }
 
         public static bool verificaSeCodigoProcuradoExiste(int codigoProcurado) {
-            List<int> listaDeCodigos = ArquivoEstoque.getCodigosDosProdutos();
+            List<int> listaDeCodigos = aE.getCodigosDosProdutos();
 
             return listaDeCodigos.Exists(codigo => codigo == codigoProcurado);
         }
@@ -75,9 +75,6 @@ namespace Projeto2
             
             return false;
         }
-
-
-
 
     }
 
