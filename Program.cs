@@ -31,14 +31,14 @@ namespace Projeto2
 
             Estoque e = new Estoque(p, 50, 20);
 
-            carrinho.adicionarItem(idc);
+            carrinho.AdicionarItem(idc);
             //carrinho.removerItem(1);
 
             Console.WriteLine(carrinho.getResumoCarrinho());
 
             Console.WriteLine(p.ArmazenarCadastroDoProduto());
 
-            e.calcularEstoque();
+            e.CalcularEstoque();
 
             Console.WriteLine(e.ArmazenarProdutoEstoque(p));
 
@@ -53,7 +53,7 @@ namespace Projeto2
             e.setQtdTotal(30);
             e.setQtdReservada(29);
 
-            e.calcularEstoque();
+            e.CalcularEstoque();
 
             Console.WriteLine(e.ArmazenarProdutoEstoque(p));
 
@@ -68,7 +68,7 @@ namespace Projeto2
             e.setQtdTotal(100);
             e.setQtdReservada(20);
 
-            e.calcularEstoque();
+            e.CalcularEstoque();
 
             Console.WriteLine(e.ArmazenarProdutoEstoque(p));
 
@@ -76,7 +76,7 @@ namespace Projeto2
 
             Pessoa pe = new Pessoa(0,"Jefferson","Souza","123.164.123-23", Pessoa.Tipo.Cliente, en);
             
-            Console.WriteLine(pe.armazenaCadastroDaPessoa());
+            Console.WriteLine(pe.ArmazenarCadastroDaPessoa());
 
 
             Console.WriteLine(p.MostrarProdutosCadastrados());
@@ -92,14 +92,16 @@ namespace Projeto2
             pe.tipo = Pessoa.Tipo.Fornecedor;
             pe.setEndereco(en);
 
-            Console.WriteLine(pe.armazenaCadastroDaPessoa());
+            Console.WriteLine(pe.ArmazenarCadastroDaPessoa());
 
             pDC.setCodigo(Pedido.NumeroDoPedido());
             pDC.setConfirmado(false);
             pDC.setCarrinhoDeCompra(carrinho);
             pDC.setFornecedor(pe);
 
-            Console.WriteLine(pDC.ArmazenarPedido());
+            //Console.WriteLine(pDC.ArmazenarPedido());
+
+            Console.WriteLine(pDC.MostrarPedidosCadastrados());
             
 
         }

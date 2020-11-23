@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Collections.Generic;
 
@@ -23,6 +24,25 @@ namespace Projeto2
             }
 
             return pessoas;
+        }
+
+        public string LerALinhaEspecifica(int codigo){
+
+            string[] linhas = File.ReadAllLines("./_arquivos/pessoas.txt");
+
+            return linhas[codigo -1];
+        }
+
+        public List<int> getCodigosDasPessoas() {
+            string[] linhas = File.ReadAllLines("./_arquivos/pessoas.txt");
+
+            List<int> codigos = new List<int>();
+
+            foreach (string linha in linhas) {
+                codigos.Add(Int32.Parse(linha.Split(';')[0]));
+            }
+
+            return codigos;
         }
 
         public List<string> getCpfCnpjDasPessoas() {

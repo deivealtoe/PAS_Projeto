@@ -1,5 +1,5 @@
-using System.IO;
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 namespace Projeto2
@@ -7,7 +7,7 @@ namespace Projeto2
     class ArquivoProduto : Arquivo
     {
         public override void EscreverNoArquivo(string texto){
-            StreamWriter sw = new StreamWriter("./_arquivos/cadastro_de_produtos.txt", true);
+            StreamWriter sw = new StreamWriter("./_arquivos/produtos.txt", true);
 
             sw.WriteLine(texto);
             
@@ -15,7 +15,7 @@ namespace Projeto2
         }
 
         public override List<string> LerArquivo() {
-            string[] linhas = File.ReadAllLines("./_arquivos/cadastro_de_produtos.txt");
+            string[] linhas = File.ReadAllLines("./_arquivos/produtos.txt");
 
             List<string> produtos = new List<string>();
 
@@ -26,8 +26,15 @@ namespace Projeto2
             return produtos;
         }
 
+        public string LerALinhaEspecifica(int codigo){
+
+            string[] linhas = File.ReadAllLines("./_arquivos/produtos.txt");
+
+            return linhas[codigo -1];
+        }
+
         public List<int> getCodigosDosProdutos() {
-            string[] linhas = File.ReadAllLines("./_arquivos/cadastro_de_produtos.txt");
+            string[] linhas = File.ReadAllLines("./_arquivos/produtos.txt");
 
             List<int> codigos = new List<int>();
 

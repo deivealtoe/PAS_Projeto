@@ -5,6 +5,9 @@ namespace Projeto2
         private Produto produto;
         private int qtdCompra;
 
+        public ItemDeCompra(){
+            
+        }
 
         public ItemDeCompra(Produto produto, int qtdCompra) {
             this.produto = produto;

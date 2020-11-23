@@ -1,5 +1,5 @@
-using System.IO;
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 namespace Projeto2
@@ -26,6 +26,22 @@ namespace Projeto2
             return produtos;
         }
 
+        public string LerALinhaEspecifica(int codigo){
+
+            string[] linhas = File.ReadAllLines("./_arquivos/estoque.txt");
+
+            return linhas[codigo -1];
+        }
+
+        public void EscreverNaLinhaEspecifica(string texto, int codigo){
+
+            StreamWriter sw = new StreamWriter("./_arquivos/estoque.txt");
+
+            sw.WriteLine(texto, codigo);
+            
+            sw.Close();
+        }
+
         public List<int> getCodigosDosProdutos() {
             string[] linhas = File.ReadAllLines("./_arquivos/estoque.txt");
 
@@ -37,18 +53,6 @@ namespace Projeto2
 
             return codigos;
         }
-
-        public void EscreverNaLinhaEspecifica(string texto, int codigo){
-
-            StreamWriter sw = new StreamWriter("./_arquivos/estoque.txt");
-
-            sw.WriteLine(texto, codigo);
-            
-            sw.Close();
-                
-
-        }
-        
 
     }
 }

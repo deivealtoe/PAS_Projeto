@@ -7,15 +7,15 @@ namespace Projeto2
 
         private List<ItemDeCompra> itensDeCompra = new List<ItemDeCompra>();
 
-
         public CarrinhoDeCompra() {
     
         }
+
         public CarrinhoDeCompra(List<ItemDeCompra> itensDeCompra) {
             this.itensDeCompra = itensDeCompra;
         }
 
-        public List<ItemDeCompra> getItensdoCarrinho(){
+        public List<ItemDeCompra> getItensDoCarrinho(){
             return this.itensDeCompra;
         }
 
@@ -48,7 +48,7 @@ namespace Projeto2
         }
 
 
-        private bool itemExiste(int codigoProduto) {
+        private bool ItemExiste(int codigoProduto) {
             foreach (ItemDeCompra item in this.itensDeCompra) {
                 if (item.getProduto().getCodigo() == codigoProduto) {
                     return true;
@@ -59,8 +59,8 @@ namespace Projeto2
         }
 
 
-        public bool adicionarItem(ItemDeCompra item) {
-            if (this.itemExiste(item.getProduto().getCodigo())) {
+        public bool AdicionarItem(ItemDeCompra item) {
+            if (this.ItemExiste(item.getProduto().getCodigo())) {
                 return false;
             }
             
@@ -70,7 +70,7 @@ namespace Projeto2
         }
 
 
-        public bool removerItem(int codigoProduto) {
+        public bool RemoverItem(int codigoProduto) {
             int contador = 0;
             
             foreach (ItemDeCompra item in this.itensDeCompra) {
@@ -102,7 +102,7 @@ namespace Projeto2
                 }
             
                 if (naoExiste) {
-                    novoCarrinho.adicionarItem(itemCarrinho2);
+                    novoCarrinho.AdicionarItem(itemCarrinho2);
                 }
             }
             

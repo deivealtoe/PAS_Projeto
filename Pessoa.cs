@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Projeto2
@@ -13,6 +14,10 @@ namespace Projeto2
         private Endereco endereco;
 
         static ArquivoPessoa aPE = new ArquivoPessoa();
+
+        public Pessoa(){
+
+        }
 
         public Pessoa(int codigo, string nome, string sobrenome, string cpfCnpj, Tipo tipo, Endereco endereco) {
             this.codigo = codigo;
@@ -73,14 +78,19 @@ namespace Projeto2
             this.endereco = endereco;
         }
 
-        public bool verificaSeCpfCnpjProcuradoExiste(string cpfCnpjProcurado) {
+        public static bool VerificarSeCodigoProcuradoExiste(int codigoProcurado) {
+            List<int> listaDeCodigos = aPE.getCodigosDasPessoas();
+
+            return listaDeCodigos.Exists(codigo => codigo == codigoProcurado);
+        }
+
+        public bool VerificarSeCpfCnpjProcuradoExiste(string cpfCnpjProcurado) {
             List<string> listaDeCpfCnpj = aPE.getCpfCnpjDasPessoas();
 
             return listaDeCpfCnpj.Exists(cpfCnpj => cpfCnpj == cpfCnpjProcurado);
         }
 
-
-        public bool armazenaCadastroDaPessoa() {
+        public bool ArmazenarCadastroDaPessoa() {
 
             string linhaCompleta = "";
 
@@ -95,13 +105,91 @@ namespace Projeto2
             linhaCompleta += this.getEndereco().getCidade() + ";";
             linhaCompleta += this.getEndereco().getPais();
 
-            if (verificaSeCpfCnpjProcuradoExiste(this.getCpfCnpj())) {
+            if (VerificarSeCpfCnpjProcuradoExiste(this.getCpfCnpj())) {
                 return false;
             }
 
             aPE.EscreverNoArquivo(linhaCompleta);
 
             return true;
+        }
+
+        public string ProcurarPessoa(int codigoProcurado){
+
+            if(VerificarSeCodigoProcuradoExiste(codigoProcurado)){
+                string linha = aPE.LerALinhaEspecifica(codigoProcurado);
+
+                string pessoa = "";
+
+                int codigo = Int32.Parse(linha.Split(';')[0]);
+                string nome = linha.Split(';')[1];
+                string sobrenome = linha.Split(';')[2];
+                string cpfCnpj = linha.Split(';')[3];
+                string stringTipo = linha.Split(';')[4];
+
+                Tipo tipo = Tipo.Colaborador;
+
+                switch(stringTipo){
+                    case "Cliente": tipo = Tipo.Cliente;
+                    break;
+                    case "Fornecedor": tipo = Tipo.Fornecedor;
+                    break;
+                    case "Colaborador": tipo = Tipo.Colaborador;
+                    break;
+                }
+
+                string endereco = linha.Split(';')[5];
+                string bairro = linha.Split(';')[6];
+                string estado = linha.Split(';')[7];
+                string cidade = linha.Split(';')[8];
+                string pais = linha.Split(';')[9];
+
+                pessoa += "\n| Código: " + codigo + " - Nome: " + nome + " - Sobrenome: " + sobrenome + " - Cpf/Cnpj: " + cpfCnpj + 
+                " - Tipo: " + tipo + " Endereco: " + endereco + " - Bairro " + bairro + " - estado: " + estado + 
+                " - Cidade: " + cidade + " - Pais: " + pais + " |";
+
+                return pessoa+"\n";
+            }
+
+            return "Não existe uma pessoa com esse código";
+        }
+
+        public static Pessoa PegarDadosDaPessoa(int codigoProcurado){
+
+            if(VerificarSeCodigoProcuradoExiste(codigoProcurado)){
+                string linha = aPE.LerALinhaEspecifica(codigoProcurado);
+
+                int codigo = Int32.Parse(linha.Split(';')[0]);
+                string nome = linha.Split(';')[1];
+                string sobrenome = linha.Split(';')[2];
+                string cpfCnpj = linha.Split(';')[3];
+                string tipoString = linha.Split(';')[4];
+
+                Tipo tipo = Tipo.Colaborador;
+
+                switch(tipoString){
+                    case "Cliente": tipo = Tipo.Cliente;
+                    break;
+                    case "Fornecedor": tipo = Tipo.Fornecedor;
+                    break;
+                    case "Colaborador": tipo = Tipo.Colaborador;
+                    break;
+                }
+
+                string endereco = linha.Split(';')[5];
+                string bairro = linha.Split(';')[6];
+                string estado = linha.Split(';')[7];
+                string cidade = linha.Split(';')[8];
+                string pais = linha.Split(';')[9];
+
+                Endereco en = new Endereco(endereco,bairro,estado,cidade,pais);
+
+                Pessoa pessoa = new Pessoa(codigo, nome, sobrenome, cpfCnpj, tipo, en);
+
+                return pessoa;
+            }
+
+            return new Pessoa();
         }
 
     }

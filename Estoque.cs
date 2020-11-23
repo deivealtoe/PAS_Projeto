@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Projeto2
@@ -46,7 +47,7 @@ namespace Projeto2
             return listaDeCodigos.Exists(codigo => codigo == codigoProcurado);
         }
 
-        public int calcularEstoque(){
+        public int CalcularEstoque(){
 
            int calculo = getQtdTotal() - getQtdReservada();
 
@@ -58,7 +59,7 @@ namespace Projeto2
             string linhaCompleta = "";
 
             linhaCompleta += produto.getCodigo() + ";";
-            linhaCompleta += (calcularEstoque().ToString());
+            linhaCompleta += (CalcularEstoque().ToString());
 
             if (Produto.VerificarSeCodigoProcuradoExiste(produto.getCodigo())){
 
@@ -74,6 +75,34 @@ namespace Projeto2
             }
             
             return false;
+        }
+
+        public void AtualizarEstoque(Pedido pedido){
+
+            int codigo;
+            int qtdAtual;
+            int qtdProduto;
+            int calculo;
+
+            foreach (ItemDeCompra item in pedido.GetCarrinhoDeCompra().getItensDoCarrinho()) {
+                codigo = item.getProduto().getCodigo();
+
+                string linha = aE.LerALinhaEspecifica(codigo);
+
+                qtdAtual = Int32.Parse(linha.Split(';')[1]);
+
+                qtdProduto = item.getQtdCompra();
+
+                calculo = qtdAtual - qtdProduto;
+
+                string linhaCompleta = "";
+
+                linhaCompleta += codigo + ";";
+                linhaCompleta += calculo;
+
+                aE.EscreverNaLinhaEspecifica(linhaCompleta,codigo);
+            }
+
         }
 
     }

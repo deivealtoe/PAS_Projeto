@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Projeto2
@@ -10,6 +11,10 @@ namespace Projeto2
         private double valorUnitario;
 
         static ArquivoProduto aPR = new ArquivoProduto();
+
+        public Produto(){
+
+        }
 
         public Produto (int codigo, string descricao, double peso, double valorUnitario) {
             this.codigo = codigo;
@@ -72,7 +77,7 @@ namespace Projeto2
         public string MostrarProdutosCadastrados(){
 
             List<string> listaProdutos = aPR.LerArquivo();
-            string produto = "";
+            string produtos = "";
             string codigo = "";
             string descricao = "";
             string peso = "";
@@ -84,10 +89,28 @@ namespace Projeto2
                 peso = pd.Split(';')[2];
                 valorUnitario = pd.Split(';')[3];
 
-                produto += "\n| Codigo: " + codigo + " - Descrição: " + descricao + " - Peso: " + peso + " - Valor Unitário: " + valorUnitario + " |";
+                produtos += "\n| Código: " + codigo + " - Descrição: " + descricao + " - Peso: " + peso + " - Valor Unitário: " + valorUnitario + " |";
             }
 
-            return produto+"\n";
+            return produtos+"\n";
+        }
+
+        public static Produto PegarDadosDoProduto(int codigoProcurado){
+
+            if(VerificarSeCodigoProcuradoExiste(codigoProcurado)){
+                string linha = aPR.LerALinhaEspecifica(codigoProcurado);
+
+                int codigo = Int32.Parse(linha.Split(';')[0]);
+                string descricao = linha.Split(';')[1];
+                double peso = Double.Parse(linha.Split(';')[2]);
+                double valorUnitario = Double.Parse(linha.Split(';')[3]);
+
+                Produto produto = new Produto(codigo,descricao,peso,valorUnitario);
+
+                return produto;
+            }
+            
+            return new Produto();
         }
 
     }

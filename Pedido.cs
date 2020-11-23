@@ -10,6 +10,10 @@ namespace Projeto2
 
         static ArquivoPedido aPD = new ArquivoPedido();
 
+        public Pedido(){
+            
+        }
+
         public Pedido(int codigo, bool confirmado, CarrinhoDeCompra carrinhoDeCompra){
 
             this.codigo = codigo;
@@ -43,8 +47,11 @@ namespace Projeto2
 
         public abstract bool ValidarPessoa(Pessoa pessoa);
 
+        public abstract string CarrinhoDeCompra();
+
         public abstract bool ArmazenarPedido();
 
+        public abstract bool ConfirmarPedido(Pedido pedido);
 
         public static int NumeroDoPedido(){
 
