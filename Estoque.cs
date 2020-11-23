@@ -77,7 +77,7 @@ namespace Projeto2
             return false;
         }
 
-        public void AtualizarEstoque(Pedido pedido){
+        public void AtualizarEstoqueVenda(PedidoDeVenda pedido){
 
             int codigo;
             int qtdAtual;
@@ -94,6 +94,34 @@ namespace Projeto2
                 qtdProduto = item.getQtdCompra();
 
                 calculo = qtdAtual - qtdProduto;
+
+                string linhaCompleta = "";
+
+                linhaCompleta += codigo + ";";
+                linhaCompleta += calculo;
+
+                aE.EscreverNaLinhaEspecifica(linhaCompleta,codigo);
+            }
+
+        }
+
+        public void AtualizarEstoqueCompra(PedidoDeCompra pedido){
+
+            int codigo;
+            int qtdAtual;
+            int qtdProduto;
+            int calculo;
+
+            foreach (ItemDeCompra item in pedido.GetCarrinhoDeCompra().getItensDoCarrinho()) {
+                codigo = item.getProduto().getCodigo();
+
+                string linha = aE.LerALinhaEspecifica(codigo);
+
+                qtdAtual = Int32.Parse(linha.Split(';')[1]);
+
+                qtdProduto = item.getQtdCompra();
+
+                calculo = qtdAtual + qtdProduto;
 
                 string linhaCompleta = "";
 
