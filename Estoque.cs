@@ -40,7 +40,7 @@ namespace Projeto2
             this.qtdReservada = qtdReservada;
         }
 
-        public static bool verificaSeCodigoProcuradoExiste(int codigoProcurado) {
+        public static bool VerificarSeCodigoProcuradoExiste(int codigoProcurado) {
             List<int> listaDeCodigos = aE.getCodigosDosProdutos();
 
             return listaDeCodigos.Exists(codigo => codigo == codigoProcurado);
@@ -53,16 +53,16 @@ namespace Projeto2
            return calculo;
         }
 
-        public bool armazenaProdutoEstoque(Produto produto){
+        public bool ArmazenarProdutoEstoque(Produto produto){
 
             string linhaCompleta = "";
 
             linhaCompleta += produto.getCodigo() + ";";
             linhaCompleta += (calcularEstoque().ToString());
 
-            if (Produto.verificaSeCodigoProcuradoExiste(produto.getCodigo())){
+            if (Produto.VerificarSeCodigoProcuradoExiste(produto.getCodigo())){
 
-                if(Estoque.verificaSeCodigoProcuradoExiste(produto.getCodigo())){
+                if(Estoque.VerificarSeCodigoProcuradoExiste(produto.getCodigo())){
 
                     aE.EscreverNaLinhaEspecifica(linhaCompleta, produto.getCodigo());
 

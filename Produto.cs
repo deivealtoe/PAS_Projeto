@@ -45,13 +45,13 @@ namespace Projeto2
         }
 
 
-        public static bool verificaSeCodigoProcuradoExiste(int codigoProcurado) {
+        public static bool VerificarSeCodigoProcuradoExiste(int codigoProcurado) {
             List<int> listaDeCodigos = aPR.getCodigosDosProdutos();
 
             return listaDeCodigos.Exists(codigo => codigo == codigoProcurado);
         }
 
-        public bool armazenaCadastroDoProduto() {
+        public bool ArmazenarCadastroDoProduto() {
 
             string linhaCompleta = "";
 
@@ -60,7 +60,7 @@ namespace Projeto2
             linhaCompleta += this.getPeso() + ";";
             linhaCompleta += this.getValorUnitario();
 
-            if (Produto.verificaSeCodigoProcuradoExiste(this.getCodigo())) {
+            if (Produto.VerificarSeCodigoProcuradoExiste(this.getCodigo())) {
                 return false;
             }
 
@@ -69,7 +69,7 @@ namespace Projeto2
             return true;
         }
 
-        public string mostrarProdutosCadastrados(){
+        public string MostrarProdutosCadastrados(){
 
             List<string> listaProdutos = aPR.LerArquivo();
             string produto = "";

@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Projeto2
 {
     class PedidoDeCompra : Pedido
@@ -17,7 +15,7 @@ namespace Projeto2
             return this.fornecedor;
         }
 
-        public void setCliente(Pessoa fornecedor){
+        public void setFornecedor(Pessoa fornecedor){
             this.fornecedor = fornecedor;
         }
 
@@ -40,9 +38,9 @@ namespace Projeto2
 
                 itens += item.getProduto().getCodigo() + ";" + 
                 //item.getProduto().getDescricao() + ";" + 
-                item.getQtdCompra() + ";" + 
+                item.getQtdCompra() + ";"; 
                 //item.getProduto().getValorUnitario() + ";" + 
-                item.getValorTotal() + ";";
+                //item.getValorTotal() + ";";
             }
 
             itens += this.GetCarrinhoDeCompra().getValorTotalDoCarrinho();
@@ -62,7 +60,6 @@ namespace Projeto2
 
             return false;
         }
-
         
 
     }

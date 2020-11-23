@@ -36,18 +36,18 @@ namespace Projeto2
 
             Console.WriteLine(carrinho.getResumoCarrinho());
 
-            Console.WriteLine(p.armazenaCadastroDoProduto());
+            Console.WriteLine(p.ArmazenarCadastroDoProduto());
 
             e.calcularEstoque();
 
-            Console.WriteLine(e.armazenaProdutoEstoque(p));
+            Console.WriteLine(e.ArmazenarProdutoEstoque(p));
 
             p.setCodigo(2);
             p.setDescricao("Descrição");
             p.setPeso(2.10);
             p.setValorUnitario(6);
             
-            Console.WriteLine(p.armazenaCadastroDoProduto());
+            Console.WriteLine(p.ArmazenarCadastroDoProduto());
 
             e.setProduto(p);
             e.setQtdTotal(30);
@@ -55,14 +55,14 @@ namespace Projeto2
 
             e.calcularEstoque();
 
-            Console.WriteLine(e.armazenaProdutoEstoque(p));
+            Console.WriteLine(e.ArmazenarProdutoEstoque(p));
 
             p.setCodigo(4);
             p.setDescricao("Descrição");
             p.setPeso(3);
             p.setValorUnitario(9);
 
-            Console.WriteLine(p.armazenaCadastroDoProduto());
+            Console.WriteLine(p.ArmazenarCadastroDoProduto());
 
             e.setProduto(p);
             e.setQtdTotal(100);
@@ -70,7 +70,7 @@ namespace Projeto2
 
             e.calcularEstoque();
 
-            Console.WriteLine(e.armazenaProdutoEstoque(p));
+            Console.WriteLine(e.ArmazenarProdutoEstoque(p));
 
             Endereco en = new Endereco("Sei lá", "Laranjeiras", "ES", "Serra", "Brasil");
 
@@ -79,11 +79,28 @@ namespace Projeto2
             Console.WriteLine(pe.armazenaCadastroDaPessoa());
 
 
-            Console.WriteLine(p.mostrarProdutosCadastrados());
+            Console.WriteLine(p.MostrarProdutosCadastrados());
 
-            PedidoDeCompra pDC = new PedidoDeCompra(1, false, carrinho, pe);
+            PedidoDeCompra pDC = new PedidoDeCompra(Pedido.NumeroDoPedido(), false, carrinho, pe);
 
             Console.WriteLine(pDC.ArmazenarPedido());
+
+            pe.setCodigo(1);
+            pe.setNome("Fortlev");
+            pe.setSobrenome("Industria e Comercio LTDA");
+            pe.setCpfCnpj("09.609.532/0001-03");
+            pe.tipo = Pessoa.Tipo.Fornecedor;
+            pe.setEndereco(en);
+
+            Console.WriteLine(pe.armazenaCadastroDaPessoa());
+
+            pDC.setCodigo(Pedido.NumeroDoPedido());
+            pDC.setConfirmado(false);
+            pDC.setCarrinhoDeCompra(carrinho);
+            pDC.setFornecedor(pe);
+
+            Console.WriteLine(pDC.ArmazenarPedido());
+            
 
         }
     }

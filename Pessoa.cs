@@ -7,8 +7,6 @@ namespace Projeto2
         private int codigo;
         private string nome;
         private string sobrenome;
-
-        //private string razaoSocial;
         private string cpfCnpj;
         public enum Tipo{Cliente, Fornecedor, Colaborador};
         public Tipo tipo;
@@ -26,14 +24,6 @@ namespace Projeto2
         }
 
 
-        /*public Pessoa (int codigo, string razaoSocial, string cpfCnpj, Endereco endereco) {
-            this.codigo = codigo;
-            this.razaoSocial = razaoSocial;
-            this.cpfCnpj = cpfCnpj;
-            this.endereco = endereco;
-        }*/
-
-
         public int getCodigo() {
             return this.codigo;
         }
@@ -49,11 +39,6 @@ namespace Projeto2
         }
 
 
-        /*public string getRazaoSocial() {
-            return this.razaoSocial;
-        }*/
-
-
         public string getCpfCnpj() {
             return this.cpfCnpj;
         }
@@ -63,6 +48,10 @@ namespace Projeto2
             return this.endereco;
         }
 
+
+        public void setCodigo(int codigo){
+            this.codigo = codigo;
+        }
 
 
         public void setNome(string nome) {
@@ -78,11 +67,6 @@ namespace Projeto2
         public void setCpfCnpj(string cpfCnpj) {
             this.cpfCnpj = cpfCnpj;
         }
-
-
-        /*public void setRazaoSocial(string razaoSocial) {
-            this.razaoSocial = razaoSocial;
-        }*/
 
 
         public void setEndereco(Endereco endereco) {
@@ -103,7 +87,6 @@ namespace Projeto2
             linhaCompleta += this.getCodigo() + ";";
             linhaCompleta += this.getNome() + ";";
             linhaCompleta += this.getSobrenome() + ";";
-            //linhaCompleta += pessoa.getRazaoSocial() + ";";
             linhaCompleta += this.getCpfCnpj() + ";";
             linhaCompleta += this.tipo + ";";
             linhaCompleta += this.getEndereco().getEndereco() + ";";

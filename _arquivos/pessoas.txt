@@ -1,1 +1,2 @@
 0;Jefferson;Souza;123.164.123-23;Cliente;Sei lá;Laranjeiras;ES;Serra;Brasil
+1;Fortlev;Industria e Comercio LTDA;09.609.532/0001-03;Fornecedor;Sei lá;Laranjeiras;ES;Serra;Brasil

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Projeto2
 {
     abstract class Pedido
@@ -6,14 +8,14 @@ namespace Projeto2
         private bool confirmado;
         private CarrinhoDeCompra carrinhoDeCompra;
 
+        static ArquivoPedido aPD = new ArquivoPedido();
+
         public Pedido(int codigo, bool confirmado, CarrinhoDeCompra carrinhoDeCompra){
 
             this.codigo = codigo;
             this.confirmado = confirmado;
             this.carrinhoDeCompra = carrinhoDeCompra;
         }
-
-
 
         public int getCodigo(){
             return this.codigo;
@@ -42,6 +44,16 @@ namespace Projeto2
         public abstract bool ValidarPessoa(Pessoa pessoa);
 
         public abstract bool ArmazenarPedido();
+
+
+        public static int NumeroDoPedido(){
+
+            List<string> lista = aPD.LerArquivo();
+
+            int numeroDoPedido = lista.Count + 1;
+
+            return numeroDoPedido;
+        }
 
 
     }
