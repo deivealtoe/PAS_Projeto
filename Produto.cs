@@ -56,6 +56,15 @@ namespace Projeto2
             return listaDeCodigos.Exists(codigo => codigo == codigoProcurado);
         }
 
+        public static int NumeroDoProduto(){
+
+            List<string> lista = aPR.LerArquivo();
+
+            int numeroDoPedido = lista.Count + 1;
+
+            return numeroDoPedido;
+        }
+
         public bool ArmazenarCadastroDoProduto() {
 
             string linhaCompleta = "";
@@ -64,10 +73,6 @@ namespace Projeto2
             linhaCompleta += this.getDescricao() + ";";
             linhaCompleta += this.getPeso() + ";";
             linhaCompleta += this.getValorUnitario();
-
-            if (Produto.VerificarSeCodigoProcuradoExiste(this.getCodigo())) {
-                return false;
-            }
 
             aPR.EscreverNoArquivo(linhaCompleta);
 

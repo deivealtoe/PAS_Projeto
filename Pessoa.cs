@@ -90,6 +90,15 @@ namespace Projeto2
             return listaDeCpfCnpj.Exists(cpfCnpj => cpfCnpj == cpfCnpjProcurado);
         }
 
+        public static int NumeroDaPessoa(){
+
+            List<string> lista = aPE.LerArquivo();
+
+            int numeroDoPedido = lista.Count + 1;
+
+            return numeroDoPedido;
+        }
+
         public bool ArmazenarCadastroDaPessoa() {
 
             string linhaCompleta = "";

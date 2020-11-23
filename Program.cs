@@ -6,102 +6,156 @@ namespace Projeto2
     {
         static void Main(string[] args)
         {
+            //Menu
+            string menu;
+            bool repetir = true;
 
-            Produto p = new Produto(50, "Descrição", 10.55, 1.99);
+            while(repetir == true){
+  
+            Console.WriteLine(" ");
 
-            p.setCodigo(0);
-            p.setDescricao("Outra Descrição");
-            p.setPeso(5.55);
-            p.setValorUnitario(2.50);
+            Console.WriteLine("╔═════════════MENU DE OPÇÕES═════════════╗    ");
 
-            Console.WriteLine(p.getCodigo());
-            Console.WriteLine(p.getDescricao());
-            Console.WriteLine(p.getPeso());
-            Console.WriteLine(p.getValorUnitario());
+            Console.WriteLine("║ 1 - CADASTRAR PRODUTO                  ║    ");
 
-            ItemDeCompra idc = new ItemDeCompra(p, 5);
+            Console.WriteLine("║                                        ║    ");
 
-            idc.setQtdCompra(30);
+            Console.WriteLine("║ 2 - CADASTRAR PESSOA                   ║    ");
 
-            Console.WriteLine(idc.getProduto().getDescricao());
-            Console.WriteLine(idc.getQtdCompra());
-            Console.WriteLine(idc.getValorTotal());
+            Console.WriteLine("║                                        ║    ");
 
-            CarrinhoDeCompra carrinho = new CarrinhoDeCompra();
-
-            Estoque e = new Estoque(p, 50, 20);
-
-            carrinho.AdicionarItem(idc);
-            //carrinho.removerItem(1);
-
-            Console.WriteLine(carrinho.getResumoCarrinho());
-
-            Console.WriteLine(p.ArmazenarCadastroDoProduto());
-
-            e.CalcularEstoque();
-
-            Console.WriteLine(e.ArmazenarProdutoEstoque(p));
-
-            p.setCodigo(2);
-            p.setDescricao("Descrição");
-            p.setPeso(2.10);
-            p.setValorUnitario(6);
+            Console.WriteLine("║ 3 - REALIZAR PEDIDO DE COMPRA          ║    ");
             
-            Console.WriteLine(p.ArmazenarCadastroDoProduto());
+            Console.WriteLine("║                                        ║    ");
 
-            e.setProduto(p);
-            e.setQtdTotal(30);
-            e.setQtdReservada(29);
+            Console.WriteLine("║ 4 - REALIZAR PEDIDO DE VENDA           ║    ");
 
-            e.CalcularEstoque();
+            Console.WriteLine("╚════════════════════════════════════════╝    ");
 
-            Console.WriteLine(e.ArmazenarProdutoEstoque(p));
+            Console.WriteLine(" ");
 
-            p.setCodigo(4);
-            p.setDescricao("Descrição");
-            p.setPeso(3);
-            p.setValorUnitario(9);
+            Console.Write("Escolha uma opção: ");
 
-            Console.WriteLine(p.ArmazenarCadastroDoProduto());
+            menu = Console.ReadLine();
+            Console.Clear();
+            Console.WriteLine(" ");
 
-            e.setProduto(p);
-            e.setQtdTotal(100);
-            e.setQtdReservada(20);
+            //Opções do menu
+            switch(menu){
 
-            e.CalcularEstoque();
+            //Cadastra o produto
+            case "1":
 
-            Console.WriteLine(e.ArmazenarProdutoEstoque(p));
+            int codigoProduto;
+            string descricao;
+            double peso;
+            double valorUnitario;
 
-            Endereco en = new Endereco("Sei lá", "Laranjeiras", "ES", "Serra", "Brasil");
+            Console.WriteLine("CADASTRE O PRODUTO DESEJADO\n");
 
-            Pessoa pe = new Pessoa(0,"Jefferson","Souza","123.164.123-23", Pessoa.Tipo.Cliente, en);
+            codigoProduto = Produto.NumeroDoProduto();
+
+            Console.WriteLine("Digite a descrição do produto: ");
+            descricao = Console.ReadLine();
             
-            Console.WriteLine(pe.ArmazenarCadastroDaPessoa());
+            Console.WriteLine("Digite o peso do produto(kg): ");
+            peso = Double.Parse(Console.ReadLine());
 
+            Console.WriteLine("Digite o valor da unidade do produto: ");
+            valorUnitario = Double.Parse(Console.ReadLine());
 
-            Console.WriteLine(p.MostrarProdutosCadastrados());
+            Produto produto = new Produto(codigoProduto,descricao,peso,valorUnitario);
+            
+            Console.WriteLine("\nProduto cadastrado com sucesso");
+            break;
 
-            PedidoDeCompra pDC = new PedidoDeCompra(Pedido.NumeroDoPedido(), false, carrinho, pe);
+            case "2":
 
-            Console.WriteLine(pDC.ArmazenarPedido());
+            int codigoPessoa; 
+            string nome; 
+            string sobrenome; 
+            string cpfCnpj;
+            string stringTipo = ""; 
+            Pessoa.Tipo tipo = Pessoa.Tipo.Colaborador;
 
-            pe.setCodigo(1);
-            pe.setNome("Fortlev");
-            pe.setSobrenome("Industria e Comercio LTDA");
-            pe.setCpfCnpj("09.609.532/0001-03");
-            pe.tipo = Pessoa.Tipo.Fornecedor;
-            pe.setEndereco(en);
+            Console.WriteLine("CADASTRE A PESSOA DESEJADA\n");
 
-            Console.WriteLine(pe.ArmazenarCadastroDaPessoa());
+            codigoPessoa = Pessoa.NumeroDaPessoa();
 
-            pDC.setCodigo(Pedido.NumeroDoPedido());
-            pDC.setConfirmado(false);
-            pDC.setCarrinhoDeCompra(carrinho);
-            pDC.setFornecedor(pe);
+            Console.WriteLine("Digite o nome: ");
+            nome = Console.ReadLine();
 
-            //Console.WriteLine(pDC.ArmazenarPedido());
+            Console.WriteLine("Digite o sobrenome: ");
+            sobrenome = Console.ReadLine();
 
-            Console.WriteLine(pDC.MostrarPedidosCadastrados());
+            Console.WriteLine("Digite o cpf/cnpj: ");
+            cpfCnpj = Console.ReadLine();
+
+            while(stringTipo == "CLIENTE" || stringTipo == "FORNECEDOR" || stringTipo == "COLABORADOR"){
+
+                Console.WriteLine("Digite qual o tipo(Cliente | Fornecedor | Colaborador): ");
+                stringTipo = Console.ReadLine().ToUpper();
+
+                switch(stringTipo.Trim()){
+                    case "CLIENTE": 
+                    tipo = Pessoa.Tipo.Cliente;
+                    break;
+                    case "FORNECEDOR": 
+                    tipo = Pessoa.Tipo.Fornecedor;
+                    break;
+                    case "COLABORADOR": 
+                    tipo = Pessoa.Tipo.Colaborador;
+                    break;
+                    default:
+                    Console.WriteLine("Tipo inválido\n");
+                    break;
+                }
+            }
+
+            string campoEndereco; 
+            string bairro; 
+            string estado;
+            string cidade; 
+            string pais;
+
+            Console.WriteLine("Digite o endereço(Avenida/Setor/etc): ");
+            campoEndereco = Console.ReadLine();
+
+            Console.WriteLine("Digite o bairro: ");
+            bairro = Console.ReadLine();
+
+            Console.WriteLine("Digite o estado: ");
+            estado = Console.ReadLine();
+
+            Console.WriteLine("Digite a cidade: ");
+            cidade = Console.ReadLine();
+
+            Console.WriteLine("Digite o pais: ");
+            pais = Console.ReadLine();
+
+            Endereco endereco = new Endereco(campoEndereco,bairro,estado,cidade,pais);
+
+            Pessoa pessoa = new Pessoa(codigoPessoa,nome,sobrenome,cpfCnpj,tipo,endereco);
+
+            if(pessoa.ArmazenarCadastroDaPessoa()){
+                Console.WriteLine("\nPessoa cadastrada com sucesso");
+            }
+            else{
+                Console.WriteLine("\nJá existe uma pessoa cadastrada com esse cpf/cnpj");
+            }
+            break;
+
+            case "3":
+
+            
+            break;
+
+            //Caso não seja nenhuma das opções acima
+            default:
+            Console.WriteLine("OPÇÃO INVALIDA...");
+            break;
+            }
+        }  
             
 
         }

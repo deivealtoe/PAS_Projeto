@@ -9,7 +9,6 @@ namespace Projeto2
         private string pais;
 
         public Endereco (string endereco, string bairro, string estado, string cidade, string pais) {
-
             this.endereco = endereco;
             this.bairro = bairro;
             this.estado = estado;

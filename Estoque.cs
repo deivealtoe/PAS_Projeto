@@ -5,40 +5,11 @@ namespace Projeto2
 {
     class Estoque
     {
-        private Produto produto;
-        private int qtdTotal;
-        private int qtdReservada;
 
         static ArquivoEstoque aE = new ArquivoEstoque();
 
-        public Estoque(Produto produto, int qtdTotal, int qtdReservada){
-            this.produto = produto;
-            this.qtdTotal = qtdTotal;
-            this.qtdReservada = qtdReservada;
-        }
+        public Estoque(){
 
-        public Produto getProduto(){
-            return this.produto;
-        }
-
-        public int getQtdTotal(){
-            return this.qtdTotal;
-        }
-
-        public int getQtdReservada(){
-            return this.qtdReservada;
-        }
-
-        public void setProduto(Produto produto){
-            this.produto = produto;
-        }
-
-        public void setQtdTotal(int qtdTotal){
-            this.qtdTotal = qtdTotal;
-        }
-
-        public void setQtdReservada(int qtdReservada){
-            this.qtdReservada = qtdReservada;
         }
 
         public static bool VerificarSeCodigoProcuradoExiste(int codigoProcurado) {
@@ -47,25 +18,18 @@ namespace Projeto2
             return listaDeCodigos.Exists(codigo => codigo == codigoProcurado);
         }
 
-        public int CalcularEstoque(){
-
-           int calculo = getQtdTotal() - getQtdReservada();
-
-           return calculo;
-        }
-
-        public bool ArmazenarProdutoEstoque(Produto produto){
+        public bool ArmazenarProdutoEstoque(int codigo, int qtd){
 
             string linhaCompleta = "";
 
-            linhaCompleta += produto.getCodigo() + ";";
-            linhaCompleta += (CalcularEstoque().ToString());
+            linhaCompleta += codigo + ";";
+            linhaCompleta += qtd;
 
-            if (Produto.VerificarSeCodigoProcuradoExiste(produto.getCodigo())){
+            if (Produto.VerificarSeCodigoProcuradoExiste(codigo)){
 
-                if(Estoque.VerificarSeCodigoProcuradoExiste(produto.getCodigo())){
+                if(Estoque.VerificarSeCodigoProcuradoExiste(codigo)){
 
-                    aE.EscreverNaLinhaEspecifica(linhaCompleta, produto.getCodigo());
+                    aE.EscreverNaLinhaEspecifica(linhaCompleta, codigo);
 
                 }else{
                     aE.EscreverNoArquivo(linhaCompleta);
@@ -87,20 +51,24 @@ namespace Projeto2
             foreach (ItemDeCompra item in pedido.GetCarrinhoDeCompra().getItensDoCarrinho()) {
                 codigo = item.getProduto().getCodigo();
 
-                string linha = aE.LerALinhaEspecifica(codigo);
+                if(Estoque.VerificarSeCodigoProcuradoExiste(codigo)){
+                    
+                    string linha = aE.LerALinhaEspecifica(codigo);
 
-                qtdAtual = Int32.Parse(linha.Split(';')[1]);
+                    qtdAtual = Int32.Parse(linha.Split(';')[1]);
 
-                qtdProduto = item.getQtdCompra();
+                    qtdProduto = item.getQtdCompra();
 
-                calculo = qtdAtual - qtdProduto;
+                    calculo = qtdAtual - qtdProduto;
 
-                string linhaCompleta = "";
+                    string linhaCompleta = "";
 
-                linhaCompleta += codigo + ";";
-                linhaCompleta += calculo;
+                    linhaCompleta += codigo + ";";
+                    linhaCompleta += calculo;
 
-                aE.EscreverNaLinhaEspecifica(linhaCompleta,codigo);
+                    ArmazenarProdutoEstoque(codigo, calculo);
+
+                }
             }
 
         }
@@ -128,7 +96,7 @@ namespace Projeto2
                 linhaCompleta += codigo + ";";
                 linhaCompleta += calculo;
 
-                aE.EscreverNaLinhaEspecifica(linhaCompleta,codigo);
+                ArmazenarProdutoEstoque(codigo, calculo);
             }
 
         }
