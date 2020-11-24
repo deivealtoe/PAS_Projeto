@@ -47,11 +47,17 @@ namespace Projeto2
 
         public abstract bool ValidarPessoa(Pessoa pessoa);
 
+        public abstract bool VerificarSeCodigoProcuradoExiste(int codigo);
+
         public abstract string CarrinhoDeCompra();
 
         public abstract bool ArmazenarPedido();
 
-        public abstract bool ConfirmarPedido(Pedido pedido);
+        public abstract void ConfirmarPedido();
+
+        public abstract string MostrarPedidosCadastrados();
+
+        public abstract Pedido PegarDadosDoPedido(int codigoProcurado);
 
         public static int NumeroDoPedido(){
 

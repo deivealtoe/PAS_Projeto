@@ -33,15 +33,6 @@ namespace Projeto2
             return linhas[codigo -1];
         }
 
-        public void EscreverNaLinhaEspecifica(string texto, int codigo){
-
-            StreamWriter sw = new StreamWriter("./_arquivos/estoque.txt");
-
-            sw.WriteLine(texto, codigo);
-            
-            sw.Close();
-        }
-
         public List<int> getCodigosDosProdutos() {
             string[] linhas = File.ReadAllLines("./_arquivos/estoque.txt");
 
@@ -52,6 +43,14 @@ namespace Projeto2
             }
 
             return codigos;
+        }
+
+        public void CriarArquivo(){
+            File.Create("./_arquivos/estoque.txt").Close();
+        }
+
+        public void DeletarArquivo(){
+            File.Delete("./_arquivos/estoque.txt");
         }
 
     }

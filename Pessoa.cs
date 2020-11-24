@@ -110,8 +110,8 @@ namespace Projeto2
             linhaCompleta += this.tipo + ";";
             linhaCompleta += this.getEndereco().getEndereco() + ";";
             linhaCompleta += this.getEndereco().getBairro() + ";";
-            linhaCompleta += this.getEndereco().getEstado() + ";";
             linhaCompleta += this.getEndereco().getCidade() + ";";
+            linhaCompleta += this.getEndereco().getEstado() + ";";
             linhaCompleta += this.getEndereco().getPais();
 
             if (VerificarSeCpfCnpjProcuradoExiste(this.getCpfCnpj())) {
@@ -123,6 +123,43 @@ namespace Projeto2
             return true;
         }
 
+        public string MostrarPessoasCadastradas(){
+
+            List<string> listaPessoas = aPE.LerArquivo();
+            
+            string pessoas = "";
+
+            string codigo = "";
+            string nome = "";
+            string sobrenome = "";
+            string cpfCnpj = "";
+            string tipo = "";
+            string endereco  = "";
+            string bairro = "";
+            string estado = "";
+            string cidade = "";
+            string pais = "";
+
+            foreach(string pe in listaPessoas){
+                codigo = pe.Split(';')[0];
+                nome = pe.Split(';')[1];
+                sobrenome = pe.Split(';')[2];
+                cpfCnpj = pe.Split(';')[3];
+                tipo = pe.Split(';')[4];
+                endereco = pe.Split(';')[5];
+                bairro = pe.Split(';')[6];
+                estado = pe.Split(';')[7];
+                cidade = pe.Split(';')[8];
+                pais = pe.Split(';')[8];
+
+                pessoas += "\n| Código: " + codigo + " - Nome: " + nome + " - Sobrenome: " + sobrenome + 
+                " - Cpf/Cnpj: " + cpfCnpj + " - Tipo: " + tipo + " - Endereco: " + endereco + 
+                " - Bairro " + bairro + " - Cidade: " + cidade + " - Estado: " + estado + " - Pais: " + pais + " |";
+            }
+
+            return pessoas+"\n";
+        }
+
         public string ProcurarPessoa(int codigoProcurado){
 
             if(VerificarSeCodigoProcuradoExiste(codigoProcurado)){
@@ -130,32 +167,20 @@ namespace Projeto2
 
                 string pessoa = "";
 
-                int codigo = Int32.Parse(linha.Split(';')[0]);
+                string codigo = linha.Split(';')[0];
                 string nome = linha.Split(';')[1];
                 string sobrenome = linha.Split(';')[2];
                 string cpfCnpj = linha.Split(';')[3];
-                string stringTipo = linha.Split(';')[4];
-
-                Tipo tipo = Tipo.Colaborador;
-
-                switch(stringTipo){
-                    case "Cliente": tipo = Tipo.Cliente;
-                    break;
-                    case "Fornecedor": tipo = Tipo.Fornecedor;
-                    break;
-                    case "Colaborador": tipo = Tipo.Colaborador;
-                    break;
-                }
-
+                string tipo = linha.Split(';')[4];
                 string endereco = linha.Split(';')[5];
                 string bairro = linha.Split(';')[6];
                 string estado = linha.Split(';')[7];
                 string cidade = linha.Split(';')[8];
                 string pais = linha.Split(';')[9];
 
-                pessoa += "\n| Código: " + codigo + " - Nome: " + nome + " - Sobrenome: " + sobrenome + " - Cpf/Cnpj: " + cpfCnpj + 
-                " - Tipo: " + tipo + " Endereco: " + endereco + " - Bairro " + bairro + " - estado: " + estado + 
-                " - Cidade: " + cidade + " - Pais: " + pais + " |";
+                pessoa += "\n| Código: " + codigo + " - Nome: " + nome + " - Sobrenome: " + sobrenome + 
+                " - Cpf/Cnpj: " + cpfCnpj + " - Tipo: " + tipo + " - Endereco: " + endereco + 
+                " - Bairro " + bairro + " - Cidade: " + cidade + " - Estado: " + estado + " - Pais: " + pais + " |";
 
                 return pessoa+"\n";
             }
@@ -187,11 +212,11 @@ namespace Projeto2
 
                 string endereco = linha.Split(';')[5];
                 string bairro = linha.Split(';')[6];
-                string estado = linha.Split(';')[7];
-                string cidade = linha.Split(';')[8];
+                string cidade = linha.Split(';')[7];
+                string estado = linha.Split(';')[8];
                 string pais = linha.Split(';')[9];
 
-                Endereco en = new Endereco(endereco,bairro,estado,cidade,pais);
+                Endereco en = new Endereco(endereco,bairro,cidade,estado,pais);
 
                 Pessoa pessoa = new Pessoa(codigo, nome, sobrenome, cpfCnpj, tipo, en);
 

@@ -37,8 +37,8 @@ namespace Projeto2
             return false;
         }
 
-        public bool VerificarSeCodigoProcuradoExiste(int codigoProcurado) {
-            List<int> listaDeCodigos = aPD.getCodigosDasPessoas();
+        public override bool VerificarSeCodigoProcuradoExiste(int codigoProcurado) {
+            List<int> listaDeCodigos = aPD.getCodigosDosPedidos();
 
             return listaDeCodigos.Exists(codigo => codigo == codigoProcurado);
         }
@@ -76,68 +76,77 @@ namespace Projeto2
             return false;
         }
 
-        public override bool ConfirmarPedido(Pedido pedido){
+        public override void ConfirmarPedido(){
 
-            pedido.setConfirmado(true);
+            this.setConfirmado(true);
 
             string linhaCompleta = "";
 
-            linhaCompleta += pedido.getCodigo() + ";";
-            linhaCompleta += pedido.getConfirmado() + ";";
+            linhaCompleta += this.getCodigo() + ";";
+            linhaCompleta += this.getConfirmado() + ";";
             linhaCompleta += this.getFornecedor().getCodigo() + ";";
             linhaCompleta += CarrinhoDeCompra();
 
-            aPD.EscreverNaLinhaEspecifica(linhaCompleta, pedido.getCodigo());
-
-            return true;
+            List<string> linhas = aPD.LerArquivo();
+            aPD.DeletarArquivo();
+            aPD.CriarArquivo();
+            linhas[this.getCodigo()-1] = linhaCompleta;
+            foreach(string linha in linhas){
+                aPD.EscreverNoArquivo(linha);
+            }
         }
 
 
-        public string MostrarPedidosCadastrados(){
+        public override string MostrarPedidosCadastrados(){
 
             List<string> listaPedidos = aPD.LerArquivo();
 
             string pedidos = "";
             string codigo = "";
             string confirmado = "";
-            string fornecedor = "";
+            string codigoFornecedor = "";
             string valor = "";
             
 
             foreach(string pd in listaPedidos){
 
-                string carrinho = "";
-
-                List<string> tamanho = new List<string>();
-
-                string[] partes = pd.Split(';');
-
-                foreach (string parte in partes) {
-                    tamanho.Add(parte);
-                }
-
                 codigo = pd.Split(';')[0];
                 confirmado = pd.Split(';')[1];
-                fornecedor = pd.Split(';')[2];
-
-                for (int i = 3; i < tamanho.Count - 1; i++){ 
-                    if(i % 2 != 0){
-                        carrinho += "- Código do produto: " + pd.Split(';')[i] + " ";
-                    }else{
-                        carrinho += "- Quantidade: " + pd.Split(';')[i] + " ";
-                    }
-                }
-
-                valor = pd.Split(';')[tamanho.Count - 1];
+                codigoFornecedor = pd.Split(';')[2];
                 
-                pedidos += "\n| Código do pedido: " + codigo + " - Confirmado: " + confirmado + 
-                " - Código do fornecedor: " + fornecedor + " " + carrinho + " - Valor: R$" + valor + " |";
+                Pessoa fornecedor = Pessoa.PegarDadosDaPessoa(Int32.Parse(codigoFornecedor));
+
+                if(fornecedor.tipo == Pessoa.Tipo.Fornecedor && confirmado.Equals("False")){
+
+                    string carrinho = "";
+
+                    List<string> tamanho = new List<string>();
+
+                    string[] partes = pd.Split(';');
+
+                    foreach (string parte in partes) {
+                        tamanho.Add(parte);
+                    }
+
+                    for (int i = 3; i < tamanho.Count - 1; i++){ 
+                        if(i % 2 != 0){
+                            carrinho += "- Código do produto: " + pd.Split(';')[i] + " ";
+                        }else{
+                            carrinho += "- Quantidade: " + pd.Split(';')[i] + " ";
+                        }
+                    }
+
+                    valor = pd.Split(';')[tamanho.Count - 1];
+                    
+                    pedidos += "\n| Código: " + codigo + " - Confirmado: " + confirmado + 
+                    " - Fornecedor: " + fornecedor.getNome() + " " + carrinho + " - Valor: R$" + valor + " |";
+                }
             }
 
             return pedidos+"\n";
         }
 
-        public Pedido PegarDadosDoPedido(int codigoProcurado){
+        public override Pedido PegarDadosDoPedido(int codigoProcurado){
 
             if(VerificarSeCodigoProcuradoExiste(codigoProcurado)){
 
@@ -147,6 +156,10 @@ namespace Projeto2
 
                 string[] partes = linha.Split(';');
 
+                foreach (string parte in partes) {
+                    tamanho.Add(parte);
+                }
+
                 int codigo = Int32.Parse(linha.Split(';')[0]);
 
                 string stringConfirmado = linha.Split(';')[1];
@@ -154,9 +167,9 @@ namespace Projeto2
                 bool confirmado = false;
 
                 switch(stringConfirmado){
-                    case "true": confirmado = true;
+                    case "True": confirmado = true;
                     break;
-                    case "false": confirmado = false;
+                    case "False": confirmado = false;
                     break;
                 }
 
@@ -168,14 +181,16 @@ namespace Projeto2
 
                 ItemDeCompra itemDeCompra = new ItemDeCompra();
 
-                for (int i = 3; i < tamanho.Count - 1; i++){ 
-                    if(i % 2 != 0){
-                        produto = Produto.PegarDadosDoProduto(Int32.Parse(linha.Split(';')[i]));
-                        itemDeCompra.setProduto(produto);
-                    }else{
+                for (int i = 3; i < tamanho.Count - 1; i++){
+                    switch(i % 2){
+                        case 0:
                         int qtd =  Int32.Parse(linha.Split(';')[i]);
-                        itemDeCompra.setQtdCompra(qtd);
+                        itemDeCompra = new ItemDeCompra(produto,qtd);
                         carrinhoDeCompra.AdicionarItem(itemDeCompra);
+                        break;
+                        default:
+                        produto = Produto.PegarDadosDoProduto(Int32.Parse(linha.Split(';')[i]));
+                        break;
                     }
                 }
 

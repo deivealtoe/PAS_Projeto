@@ -8,11 +8,15 @@ namespace Projeto2
         private string estado;
         private string pais;
 
-        public Endereco (string endereco, string bairro, string estado, string cidade, string pais) {
+        public Endereco(){
+            
+        }
+
+        public Endereco (string endereco, string bairro, string cidade, string estado, string pais) {
             this.endereco = endereco;
             this.bairro = bairro;
-            this.estado = estado;
             this.cidade = cidade;
+            this.estado = estado;
             this.pais = pais;
         }
 
@@ -24,12 +28,12 @@ namespace Projeto2
             return this.bairro;
         }
 
-        public string getEstado(){
-            return this.estado;
-        }
-
         public string getCidade(){
             return this.cidade;
+        }
+
+        public string getEstado(){
+            return this.estado;
         }
 
         public string getPais(){
@@ -44,12 +48,12 @@ namespace Projeto2
             this.bairro = bairro;
         }
 
-        public void setEstado(string estado){
-            this.estado = estado;
-        }
-
         public void setCidade(string cidade){
             this.cidade = cidade;
+        }
+
+        public void setEstado(string estado){
+            this.estado = estado;
         }
 
         public void setPais(string pais){

@@ -1,0 +1,2 @@
+1;Camisa Oficial do Flamengo 2020/2021;0,3;299,99
+2;Camisa Oficial do Vasco 2020/2021;0,3;10

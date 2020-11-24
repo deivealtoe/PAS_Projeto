@@ -33,17 +33,8 @@ namespace Projeto2
             return linhas[codigo -1];
         }
 
-        public void EscreverNaLinhaEspecifica(string texto, int codigo){
-
-            StreamWriter sw = new StreamWriter("./_arquivos/pedidos.txt");
-
-            sw.WriteLine(texto, codigo);
-            
-            sw.Close();   
-        }
-
-        public List<int> getCodigosDasPessoas() {
-            string[] linhas = File.ReadAllLines("./_arquivos/pessoas.txt");
+        public List<int> getCodigosDosPedidos() {
+            string[] linhas = File.ReadAllLines("./_arquivos/pedidos.txt");
 
             List<int> codigos = new List<int>();
 
@@ -54,6 +45,12 @@ namespace Projeto2
             return codigos;
         }
 
+        public void CriarArquivo(){
+            File.Create("./_arquivos/pedidos.txt").Close();
+        }
 
+        public void DeletarArquivo(){
+            File.Delete("./_arquivos/pedidos.txt");
+        }
     }
 }

@@ -49,7 +49,6 @@ namespace Projeto2
             this.valorUnitario = valorUnitario;
         }
 
-
         public static bool VerificarSeCodigoProcuradoExiste(int codigoProcurado) {
             List<int> listaDeCodigos = aPR.getCodigosDosProdutos();
 
@@ -65,7 +64,7 @@ namespace Projeto2
             return numeroDoPedido;
         }
 
-        public bool ArmazenarCadastroDoProduto() {
+        public void ArmazenarCadastroDoProduto() {
 
             string linhaCompleta = "";
 
@@ -75,8 +74,6 @@ namespace Projeto2
             linhaCompleta += this.getValorUnitario();
 
             aPR.EscreverNoArquivo(linhaCompleta);
-
-            return true;
         }
 
         public string MostrarProdutosCadastrados(){
