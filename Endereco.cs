@@ -2,7 +2,7 @@ namespace Projeto2
 {
     class Endereco
     {
-        private string endereco;
+        private string cep;
         private string bairro;
         private string cidade;
         private string estado;
@@ -12,16 +12,16 @@ namespace Projeto2
             
         }
 
-        public Endereco (string endereco, string bairro, string cidade, string estado, string pais) {
-            this.endereco = endereco;
+        public Endereco (string cep, string bairro, string cidade, string estado, string pais) {
+            this.cep = cep;
             this.bairro = bairro;
             this.cidade = cidade;
             this.estado = estado;
             this.pais = pais;
         }
 
-        public string getEndereco(){
-            return this.endereco;
+        public string getCep(){
+            return this.cep;
         }
 
         public string getBairro(){
@@ -40,8 +40,8 @@ namespace Projeto2
             return this.pais;
         }
 
-        public void setEndereco(string endereco){
-            this.endereco = endereco;
+        public void setCep(string cep){
+            this.cep = cep;
         }
 
         public void setBairro(string bairro){

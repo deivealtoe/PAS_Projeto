@@ -108,7 +108,7 @@ namespace Projeto2
             linhaCompleta += this.getSobrenome() + ";";
             linhaCompleta += this.getCpfCnpj() + ";";
             linhaCompleta += this.tipo + ";";
-            linhaCompleta += this.getEndereco().getEndereco() + ";";
+            linhaCompleta += this.getEndereco().getCep() + ";";
             linhaCompleta += this.getEndereco().getBairro() + ";";
             linhaCompleta += this.getEndereco().getCidade() + ";";
             linhaCompleta += this.getEndereco().getEstado() + ";";
@@ -134,7 +134,7 @@ namespace Projeto2
             string sobrenome = "";
             string cpfCnpj = "";
             string tipo = "";
-            string endereco  = "";
+            string cep  = "";
             string bairro = "";
             string estado = "";
             string cidade = "";
@@ -146,14 +146,14 @@ namespace Projeto2
                 sobrenome = pe.Split(';')[2];
                 cpfCnpj = pe.Split(';')[3];
                 tipo = pe.Split(';')[4];
-                endereco = pe.Split(';')[5];
+                cep = pe.Split(';')[5];
                 bairro = pe.Split(';')[6];
                 estado = pe.Split(';')[7];
                 cidade = pe.Split(';')[8];
                 pais = pe.Split(';')[8];
 
                 pessoas += "\n| Código: " + codigo + " - Nome: " + nome + " - Sobrenome: " + sobrenome + 
-                " - Cpf/Cnpj: " + cpfCnpj + " - Tipo: " + tipo + " - Endereco: " + endereco + 
+                " - Cpf/Cnpj: " + cpfCnpj + " - Tipo: " + tipo + " - Cep: " + cep + 
                 " - Bairro " + bairro + " - Cidade: " + cidade + " - Estado: " + estado + " - Pais: " + pais + " |";
             }
 
@@ -172,14 +172,14 @@ namespace Projeto2
                 string sobrenome = linha.Split(';')[2];
                 string cpfCnpj = linha.Split(';')[3];
                 string tipo = linha.Split(';')[4];
-                string endereco = linha.Split(';')[5];
+                string cep = linha.Split(';')[5];
                 string bairro = linha.Split(';')[6];
                 string estado = linha.Split(';')[7];
                 string cidade = linha.Split(';')[8];
                 string pais = linha.Split(';')[9];
 
                 pessoa += "\n| Código: " + codigo + " - Nome: " + nome + " - Sobrenome: " + sobrenome + 
-                " - Cpf/Cnpj: " + cpfCnpj + " - Tipo: " + tipo + " - Endereco: " + endereco + 
+                " - Cpf/Cnpj: " + cpfCnpj + " - Tipo: " + tipo + " - Cep: " + cep + 
                 " - Bairro " + bairro + " - Cidade: " + cidade + " - Estado: " + estado + " - Pais: " + pais + " |";
 
                 return pessoa+"\n";
@@ -210,13 +210,13 @@ namespace Projeto2
                     break;
                 }
 
-                string endereco = linha.Split(';')[5];
+                string cep = linha.Split(';')[5];
                 string bairro = linha.Split(';')[6];
                 string cidade = linha.Split(';')[7];
                 string estado = linha.Split(';')[8];
                 string pais = linha.Split(';')[9];
 
-                Endereco en = new Endereco(endereco,bairro,cidade,estado,pais);
+                Endereco en = new Endereco(cep,bairro,cidade,estado,pais);
 
                 Pessoa pessoa = new Pessoa(codigo, nome, sobrenome, cpfCnpj, tipo, en);
 

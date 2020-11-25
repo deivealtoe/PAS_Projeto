@@ -285,51 +285,54 @@ namespace Projeto2
 
                     //Confirma um pedido de compra
                     case "6":
-                    Console.WriteLine("CONFIRME O PEDIDO DE COMPRA DESEJADO\n");
+                    if(pedidoDeCompra.MostrarPedidosCadastrados() != "\n"){
 
-                    Console.WriteLine(pedidoDeCompra.MostrarPedidosCadastrados());
+                        Console.WriteLine("CONFIRME O PEDIDO DE COMPRA DESEJADO\n");
 
-                    Console.WriteLine("Digite o código do pedido: ");
-                    codigoPedido = Int32.Parse(Console.ReadLine());
+                        Console.WriteLine(pedidoDeCompra.MostrarPedidosCadastrados());
 
-                    pedidoDeCompra = pedidoDeCompra.PegarDadosDoPedido(codigoPedido);
+                        Console.WriteLine("Digite o código do pedido: ");
+                        codigoPedido = Int32.Parse(Console.ReadLine());
 
-                    if(pedidoDeCompra.getConfirmado().Equals(false)){
-                        pedidoDeCompra.ConfirmarPedido();
+                        pedidoDeCompra = pedidoDeCompra.PegarDadosDoPedido(codigoPedido);
 
-                        estoque.AtualizarEstoqueCompra(pedidoDeCompra);
+                        if(pedidoDeCompra.getConfirmado().Equals(false)){
+                            pedidoDeCompra.ConfirmarPedido();
 
-                        Console.WriteLine("\nPedido confirmado com sucesso");
+                            estoque.AtualizarEstoqueCompra(pedidoDeCompra);
+
+                            Console.WriteLine("\nPedido confirmado com sucesso");
+                        }else{
+                            Console.WriteLine("\nNão foi possível confirmar o pedido"); 
+                        } 
                     }else{
-                        Console.WriteLine("\nNão foi possível confirmar o pedido"); 
+                        Console.WriteLine("Não há nenhum pedido de compra para confirmar");
                     }
                     break;
 
                     //Confirma um pedido de venda
                     case "7":
-                    Console.WriteLine("CONFIRME O PEDIDO DE VENDA DESEJADO\n");
+                    if(pedidoDeVenda.MostrarPedidosCadastrados() != "\n"){
+                        Console.WriteLine("CONFIRME O PEDIDO DE VENDA DESEJADO\n");
 
-                    Console.WriteLine(pedidoDeVenda.MostrarPedidosCadastrados());
+                        Console.WriteLine(pedidoDeVenda.MostrarPedidosCadastrados());
 
-                    Console.WriteLine("Digite o código do pedido: ");
-                    codigoPedido = Int32.Parse(Console.ReadLine());
+                        Console.WriteLine("Digite o código do pedido: ");
+                        codigoPedido = Int32.Parse(Console.ReadLine());
 
-                    pedidoDeVenda = pedidoDeVenda.PegarDadosDoPedido(codigoPedido);
+                        pedidoDeVenda = pedidoDeVenda.PegarDadosDoPedido(codigoPedido);
 
-                    if(pedidoDeVenda.getConfirmado().Equals(false)){
-                        pedidoDeVenda.ConfirmarPedido();
-                        if(estoque.AtualizarEstoqueVenda(pedidoDeVenda) == 0){
-                            Console.WriteLine("\nPedido confirmado com sucesso");
+                        if(pedidoDeVenda.getConfirmado().Equals(false)){
+                            pedidoDeVenda.ConfirmarPedido();
+                            if(estoque.AtualizarEstoqueVenda(pedidoDeVenda) == 0){
+                                Console.WriteLine("\nPedido confirmado com sucesso");
+                            }
+                        }else{
+                            Console.WriteLine("\nNão foi possível confirmar o pedido"); 
                         }
                     }else{
-                        Console.WriteLine("\nNão foi possível confirmar o pedido"); 
+                        Console.WriteLine("Não há nenhum pedido de venda para confirmar");
                     }
-                    break;
-
-                    case "8":
-                    Console.Clear();
-                    Console.WriteLine("PROGRAMA FINALIZADO COM SUCESSO");
-                    repetir = false;
                     break;
 
                     //Caso não seja nenhuma das opções acima
@@ -341,3 +344,4 @@ namespace Projeto2
         }
     }
 }
+
