@@ -1,2 +1,2 @@
-1;Jefferson;Souza;134.398.023-21;Cliente;Setor-Europa;Cidade Continental;Serra;ES;Brasil
-2;Deiv;Silva;104.378.783-13;Fornecedor;Setor-América;Cidade Continental;Serra;ES;Brasil
+1;Jefferson;Souza;134.398.023-21;Cliente;29163-528;Cidade Continental;Serra;ES;Brasil
+2;Deiv;Silva;104.378.783-13;Fornecedor;29163-526;Cidade Continental;Serra;ES;Brasil

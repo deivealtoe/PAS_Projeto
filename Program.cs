@@ -285,7 +285,7 @@ namespace Projeto2
 
                     //Confirma um pedido de compra
                     case "6":
-                    if(pedidoDeCompra.MostrarPedidosCadastrados() != "\n"){
+                    if(pedidoDeCompra.MostrarPedidosCadastrados().Length > 0){
 
                         Console.WriteLine("CONFIRME O PEDIDO DE COMPRA DESEJADO\n");
 
@@ -312,7 +312,7 @@ namespace Projeto2
 
                     //Confirma um pedido de venda
                     case "7":
-                    if(pedidoDeVenda.MostrarPedidosCadastrados() != "\n"){
+                    if(pedidoDeVenda.MostrarPedidosCadastrados().Length > 0){
                         Console.WriteLine("CONFIRME O PEDIDO DE VENDA DESEJADO\n");
 
                         Console.WriteLine(pedidoDeVenda.MostrarPedidosCadastrados());

@@ -142,8 +142,10 @@ namespace Projeto2
                     " - Fornecedor: " + fornecedor.getNome() + " " + carrinho + " - Valor: R$" + valor + " |";
                 }
             }
-
-            return pedidos+"\n";
+            if(pedidos.Length > 0){
+                return pedidos+"\n";
+            }
+            return pedidos;
         }
 
         public override Pedido PegarDadosDoPedido(int codigoProcurado){
