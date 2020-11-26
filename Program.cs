@@ -296,7 +296,7 @@ namespace Projeto2
 
                         pedidoDeCompra = pedidoDeCompra.PegarDadosDoPedido(codigoPedido);
 
-                        if(pedidoDeCompra.getConfirmado().Equals(false)){
+                        if(pedidoDeCompra.getConfirmado().Equals(false) && pedidoDeCompra.GetCarrinhoDeCompra() != null){
                             pedidoDeCompra.ConfirmarPedido();
 
                             estoque.AtualizarEstoqueCompra(pedidoDeCompra);
@@ -322,7 +322,7 @@ namespace Projeto2
 
                         pedidoDeVenda = pedidoDeVenda.PegarDadosDoPedido(codigoPedido);
 
-                        if(pedidoDeVenda.getConfirmado().Equals(false)){
+                        if(pedidoDeVenda.getConfirmado().Equals(false) && pedidoDeCompra.GetCarrinhoDeCompra() != null){
                             pedidoDeVenda.ConfirmarPedido();
                             if(estoque.AtualizarEstoqueVenda(pedidoDeVenda) == 0){
                                 Console.WriteLine("\nPedido confirmado com sucesso");
