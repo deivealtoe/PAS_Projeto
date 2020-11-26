@@ -198,38 +198,46 @@ namespace Projeto2
 
                     pessoa.ProcurarPessoa(codigoFornecedor);
 
-                    Pessoa fornecedor = Pessoa.PegarDadosDaPessoa(codigoFornecedor);
+                    if(pessoa.getCodigo() != 0){
+                        Pessoa fornecedor = Pessoa.PegarDadosDaPessoa(codigoFornecedor);
 
-                    Console.WriteLine("\nESCOLHA OS PRODUTOS DESEJADOS\n");
+                        Console.WriteLine("\nESCOLHA OS PRODUTOS DESEJADOS\n");
 
-                    Console.WriteLine(produto.MostrarProdutosCadastrados());
+                        Console.WriteLine(produto.MostrarProdutosCadastrados());
 
-                    while(escolha == "sim"){
+                        while(escolha == "sim"){
 
-                        Console.WriteLine("Digite o código do produto: ");
-                        codigoProduto = Int32.Parse(Console.ReadLine());
+                            Console.WriteLine("Digite o código do produto: ");
+                            codigoProduto = Int32.Parse(Console.ReadLine());
 
-                        Console.WriteLine("Digite a quantidade desejada: ");
-                        qtd = Int32.Parse(Console.ReadLine());
+                            Console.WriteLine("Digite a quantidade desejada: ");
+                            qtd = Int32.Parse(Console.ReadLine());
 
-                        produto = Produto.PegarDadosDoProduto(codigoProduto);
+                            produto = Produto.PegarDadosDoProduto(codigoProduto);
 
-                        item = new ItemDeCompra(produto, qtd);
+                            if(produto.getCodigo() != 0){
+                                item = new ItemDeCompra(produto, qtd);
 
-                        carrinhoDeCompra.AdicionarItem(item);
+                                carrinhoDeCompra.AdicionarItem(item);
 
-                        Console.WriteLine("Deseja escolher mais algum produto?(Sim|Não) ");
-                        escolha = Console.ReadLine().ToLower(); 
-                    }
+                                Console.WriteLine("Deseja escolher mais algum produto?(Sim|Não) ");
+                                escolha = Console.ReadLine().ToLower(); 
+                            }else{
+                                Console.WriteLine("\nCódigo do Produto inválido");
+                            }                         
+                        }
 
-                    pedidoDeCompra = new PedidoDeCompra(codigoPedido,confirmado,carrinhoDeCompra,fornecedor);
+                        pedidoDeCompra = new PedidoDeCompra(codigoPedido,confirmado,carrinhoDeCompra,fornecedor);
 
-                    if(pedidoDeCompra.ArmazenarPedido()){
-                        Console.WriteLine("\nPedido Realizado com sucesso");
-                    }
-                    else{
-                        Console.WriteLine("\nA pessoa escolhida não é um fornecedor");
-                    }
+                        if(pedidoDeCompra.ArmazenarPedido()){
+                            Console.WriteLine("\nPedido Realizado com sucesso");
+                        }
+                        else{
+                            Console.WriteLine("\nA pessoa escolhida não é um fornecedor");
+                        }
+                    }else{
+                        Console.WriteLine("\nCódigo do Fornecedor inválido");
+                    }                  
                     break;
 
                     //Realiza um pedido de venda
@@ -247,39 +255,43 @@ namespace Projeto2
 
                     pessoa.ProcurarPessoa(codigoCliente);
 
-                    Pessoa cliente = Pessoa.PegarDadosDaPessoa(codigoCliente);
+                    if(pessoa.getCodigo() != 0){
+                        Pessoa cliente = Pessoa.PegarDadosDaPessoa(codigoCliente);
 
-                    Console.WriteLine("\nESCOLHA OS PRODUTOS DESEJADOS\n");
+                        Console.WriteLine("\nESCOLHA OS PRODUTOS DESEJADOS\n");
 
-                    Console.WriteLine(produto.MostrarProdutosCadastrados());
+                        Console.WriteLine(produto.MostrarProdutosCadastrados());
 
-                    escolha = "sim";
+                        escolha = "sim";
 
-                    while(escolha == "sim"){
+                        while(escolha == "sim"){
 
-                        Console.WriteLine("Digite o código do produto: ");
-                        codigoProduto = Int32.Parse(Console.ReadLine());
+                            Console.WriteLine("Digite o código do produto: ");
+                            codigoProduto = Int32.Parse(Console.ReadLine());
 
-                        Console.WriteLine("Digite a quantidade desejada: ");
-                        qtd = Int32.Parse(Console.ReadLine());
+                            Console.WriteLine("Digite a quantidade desejada: ");
+                            qtd = Int32.Parse(Console.ReadLine());
 
-                        produto = Produto.PegarDadosDoProduto(codigoProduto);
+                            produto = Produto.PegarDadosDoProduto(codigoProduto);
 
-                        item = new ItemDeCompra(produto, qtd);
+                            item = new ItemDeCompra(produto, qtd);
 
-                        carrinhoDeCompra.AdicionarItem(item);
+                            carrinhoDeCompra.AdicionarItem(item);
 
-                        Console.WriteLine("Deseja escolher mais algum produto?(Sim|Não) ");
-                        escolha = Console.ReadLine().ToLower(); 
-                    }
+                            Console.WriteLine("Deseja escolher mais algum produto?(Sim|Não) ");
+                            escolha = Console.ReadLine().ToLower(); 
+                        }
 
-                    pedidoDeVenda = new PedidoDeVenda(codigoPedido,confirmado,carrinhoDeCompra,cliente);
+                        pedidoDeVenda = new PedidoDeVenda(codigoPedido,confirmado,carrinhoDeCompra,cliente);
 
-                    if(pedidoDeVenda.ArmazenarPedido()){
-                        Console.WriteLine("\nPedido Realizado com sucesso");
-                    }
-                    else{
-                        Console.WriteLine("\nA pessoa escolhida não é um cliente");
+                        if(pedidoDeVenda.ArmazenarPedido()){
+                            Console.WriteLine("\nPedido Realizado com sucesso");
+                        }
+                        else{
+                            Console.WriteLine("\nA pessoa escolhida não é um cliente");
+                        }
+                    }else{
+                        Console.WriteLine("\nCódigo do Cliente inválido");
                     }
                     break;
 
