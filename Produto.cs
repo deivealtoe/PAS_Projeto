@@ -91,7 +91,7 @@ namespace Projeto2
                 peso = pd.Split(';')[2];
                 valorUnitario = pd.Split(';')[3];
 
-                produtos += "\n| Código: " + codigo + " - Descrição: " + descricao + " - Peso: " + peso + " - Valor Unitário: " + valorUnitario + " |";
+                produtos += "\n| Código: " + codigo + " - Descrição: " + descricao + " - Peso: " + peso + " kg - Valor Unitário: R$" + valorUnitario + " |";
             }
 
             return produtos+"\n";
