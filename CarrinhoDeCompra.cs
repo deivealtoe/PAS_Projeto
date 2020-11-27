@@ -19,7 +19,6 @@ namespace Projeto2
             return this.itensDeCompra;
         }
 
-
         public double getValorTotalDoCarrinho() {
             double valorTotalDoCarrinho = 0;
             
@@ -30,23 +29,22 @@ namespace Projeto2
             return valorTotalDoCarrinho;
         }
 
-
         public string getResumoCarrinho() {
             if (this.getValorTotalDoCarrinho() != 0) {
                 string resumoCarrinho = "";
                 
                 foreach (ItemDeCompra item in this.itensDeCompra) {
-                    resumoCarrinho += "Cód. " + item.getProduto().getCodigo() + ". Produto: " + item.getProduto().getDescricao() + ". Qtd. no carrinho: " + item.getQtdCompra() + ". Vlr. Unitário: R$" + item.getProduto().getValorUnitario() + ". Total: R$" + item.getValorTotal() + ".\n";
+                    resumoCarrinho += "Código: " + item.getProduto().getCodigo() + " - Produto: " + item.getProduto().getDescricao() + " - Qtd. no carrinho: "
+                    + item.getQtdCompra() + " - Vlr. Unitário: R$" + item.getProduto().getValorUnitario() + " - Vlr. Total: R$" + item.getValorTotal() + "\n";
                 }
                 
                 resumoCarrinho += "O valor total do carrinho é de R$" + this.getValorTotalDoCarrinho();
                 
-                return resumoCarrinho;
+                return "\n"+resumoCarrinho+"\n";
             }
 
-            return "O carrinho está vazio!";
+            return "\nO carrinho está vazio!\n";
         }
-
 
         private bool ItemExiste(int codigoProduto) {
             foreach (ItemDeCompra item in this.itensDeCompra) {
@@ -58,17 +56,33 @@ namespace Projeto2
             return false;
         }
 
+        public void AdicionarItem(ItemDeCompra ic) {
 
-        public bool AdicionarItem(ItemDeCompra item) {
-            if (this.ItemExiste(item.getProduto().getCodigo())) {
-                return false;
+            CarrinhoDeCompra novoCarrinho = new CarrinhoDeCompra(this.itensDeCompra);
+
+            if (this.ItemExiste(ic.getProduto().getCodigo())) {
+
+                Produto produto = ic.getProduto();
+                int codigo = ic.getProduto().getCodigo();
+                int qtd = ic.getQtdCompra();
+                int calculo = 0;
+                ItemDeCompra itemAModificar = new ItemDeCompra();
+
+                foreach(ItemDeCompra item in this.itensDeCompra){
+                    if(codigo == item.getProduto().getCodigo()){
+
+                        calculo = qtd + item.getQtdCompra();
+
+                        ic = new ItemDeCompra(produto,calculo);
+                        itemAModificar = item;
+                    }
+                }
+
+                this.itensDeCompra.Remove(itemAModificar);
             }
-            
-            this.itensDeCompra.Add(item);
-            
-            return true;
-        }
 
+            novoCarrinho += ic; 
+        }
 
         public bool RemoverItem(int codigoProduto) {
             int contador = 0;
@@ -86,6 +100,16 @@ namespace Projeto2
             return false;
         }
 
+
+        public static CarrinhoDeCompra operator + (CarrinhoDeCompra cc1,ItemDeCompra ic){
+
+            Produto produto = ic.getProduto();
+            int qtd = ic.getQtdCompra();
+
+            cc1.itensDeCompra.Add(new ItemDeCompra(produto,qtd));
+
+            return cc1;
+        }
 
         public static CarrinhoDeCompra operator + (CarrinhoDeCompra cc1, CarrinhoDeCompra cc2) {
             CarrinhoDeCompra novoCarrinho = new CarrinhoDeCompra(cc1.itensDeCompra);
@@ -108,8 +132,6 @@ namespace Projeto2
             
             return novoCarrinho;
         }
-
-
 
     }
 }

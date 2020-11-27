@@ -15,7 +15,6 @@ namespace Projeto2
         }
 
         public Pedido(int codigo, bool confirmado, CarrinhoDeCompra carrinhoDeCompra){
-
             this.codigo = codigo;
             this.confirmado = confirmado;
             this.carrinhoDeCompra = carrinhoDeCompra;
@@ -51,7 +50,7 @@ namespace Projeto2
 
         public abstract string CarrinhoDeCompra();
 
-        public abstract bool ArmazenarPedido();
+        public abstract void ArmazenarPedido();
 
         public abstract void ConfirmarPedido();
 

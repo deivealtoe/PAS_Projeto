@@ -13,7 +13,7 @@ namespace Projeto2
             
             sw.Close();
         }
-
+        
         public override List<string> LerArquivo() {
             string[] linhas = File.ReadAllLines("./_arquivos/pessoas.txt");
 

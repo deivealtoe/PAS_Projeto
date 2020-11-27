@@ -14,7 +14,6 @@ namespace Projeto2
             this.qtdCompra = qtdCompra;
         }
         
-        
         public Produto getProduto() {
             return this.produto;
         }
@@ -24,7 +23,6 @@ namespace Projeto2
         public double getValorTotal() {
             return this.produto.getValorUnitario() * this.qtdCompra;
         }
-        
         
         public void setProduto(Produto produto) {
             this.produto = produto;

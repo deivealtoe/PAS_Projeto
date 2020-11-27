@@ -35,11 +35,48 @@ namespace Projeto2
             this.qtd = qtd;
         }
 
-
         public static bool VerificarSeCodigoProcuradoExiste(int codigoProcurado) {
             List<int> listaDeCodigos = aE.getCodigosDosProdutos();
 
             return listaDeCodigos.Exists(codigo => codigo == codigoProcurado);
+        }
+
+        public bool ValidarPedidoDeVenda(Pedido pedido){
+
+            int codigo;
+            int qtdAtual;
+            int qtdProduto;
+            int calculo;
+            int erros = 0;
+
+            foreach (ItemDeCompra item in pedido.GetCarrinhoDeCompra().getItensDoCarrinho()) {
+                codigo = item.getProduto().getCodigo();
+
+                if(Estoque.VerificarSeCodigoProcuradoExiste(codigo)){
+
+                    string linha = aE.LerALinhaEspecifica(codigo);
+
+                    qtdAtual = Int32.Parse(linha.Split(';')[1]);
+
+                    qtdProduto = item.getQtdCompra();
+
+                    calculo = qtdAtual - qtdProduto;
+
+                    if(calculo < 0){
+                        Console.WriteLine("\nA quantidade no estoque do produto '"+ item.getProduto().getDescricao() +
+                        "' é inferior a quantidade desejada");
+                        erros++;
+                    }
+                }
+                else{
+                    Console.WriteLine("\nNão há '"+ item.getProduto().getDescricao() +"' no estoque");
+                    erros++;
+                }
+            }
+            if(erros == 0){
+                return true;
+            }   
+            return false;
         }
 
         public bool InserirProdutoEstoque(int codigo, int qtd){
@@ -89,59 +126,26 @@ namespace Projeto2
             return false;
         }
 
-        public int AtualizarEstoqueVenda(Pedido pedido){
+        public void AtualizarEstoqueVenda(Pedido pedido){
 
             int codigo;
             int qtdAtual;
             int qtdProduto;
             int calculo;
-            int erros = 0;
 
-            if(pedido.GetCarrinhoDeCompra().getItensDoCarrinho().Count > 0){
+            foreach (ItemDeCompra item in pedido.GetCarrinhoDeCompra().getItensDoCarrinho()) {
+                codigo = item.getProduto().getCodigo();
 
-                foreach (ItemDeCompra item in pedido.GetCarrinhoDeCompra().getItensDoCarrinho()) {
-                    codigo = item.getProduto().getCodigo();
+                string linha = aE.LerALinhaEspecifica(codigo);
 
-                    if(Estoque.VerificarSeCodigoProcuradoExiste(codigo)){
-                        
-                        string linha = aE.LerALinhaEspecifica(codigo);
+                qtdAtual = Int32.Parse(linha.Split(';')[1]);
 
-                        qtdAtual = Int32.Parse(linha.Split(';')[1]);
+                qtdProduto = item.getQtdCompra();
 
-                        qtdProduto = item.getQtdCompra();
+                calculo = qtdAtual - qtdProduto;
 
-                        calculo = qtdAtual - qtdProduto;
-
-                        if(calculo >= 0){
-
-                            ArmazenarProdutoEstoque(codigo, calculo);
-                        }else{
-                            Console.WriteLine("\nA quantidade no estoque é inferior a quanidade desejada");
-                            erros++;
-                        }
-                    }
-                    else{
-
-                        qtdAtual = 0;
-
-                        qtdProduto = item.getQtdCompra();
-
-                        calculo = qtdAtual - qtdProduto;
-
-                        if(calculo >= 0){
-
-                            ArmazenarProdutoEstoque(codigo, calculo);
-                        }else{
-                            Console.WriteLine("\nA quantidade no estoque é inferior a quanidade desejada");
-                            erros++;
-                        }
-                    }
-                } 
-            }else{
-                Console.WriteLine("\nO produto não está no estoque");
-                erros++;
+                ArmazenarProdutoEstoque(codigo, calculo);
             }
-            return erros;
         }
 
         public void AtualizarEstoqueCompra(Pedido pedido){
@@ -177,9 +181,7 @@ namespace Projeto2
                     ArmazenarProdutoEstoque(codigo, calculo);
                 }
             }
-
         }
 
     }
-
 }

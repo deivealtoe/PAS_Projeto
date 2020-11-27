@@ -28,51 +28,41 @@ namespace Projeto2
             this.endereco = endereco;
         }
 
-
         public int getCodigo() {
             return this.codigo;
         }
-
 
         public string getNome() {
             return this.nome;
         }
 
-
         public string getSobrenome() {
             return this.sobrenome;
         }
-
 
         public string getCpfCnpj() {
             return this.cpfCnpj;
         }
 
-
         public Endereco getEndereco() {
             return this.endereco;
         }
-
 
         public void setCodigo(int codigo){
             this.codigo = codigo;
         }
 
-
         public void setNome(string nome) {
             this.nome = nome;
         }
-
 
         public void setSobrenome(string sobrenome) {
             this.sobrenome = sobrenome;
         }
 
-
         public void setCpfCnpj(string cpfCnpj) {
             this.cpfCnpj = cpfCnpj;
         }
-
 
         public void setEndereco(Endereco endereco) {
             this.endereco = endereco;
@@ -222,7 +212,7 @@ namespace Projeto2
 
                 return pessoa;
             }
-
+            
             return new Pessoa();
         }
 

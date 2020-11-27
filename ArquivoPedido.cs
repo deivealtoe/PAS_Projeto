@@ -25,7 +25,7 @@ namespace Projeto2
 
             return pedidos;
         }
-
+        
         public string LerALinhaEspecifica(int codigo){
 
             string[] linhas = File.ReadAllLines("./_arquivos/pedidos.txt");

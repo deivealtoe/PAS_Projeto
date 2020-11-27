@@ -58,7 +58,7 @@ namespace Projeto2
             return itens;
         }
 
-        public override bool ArmazenarPedido() {
+        public override void ArmazenarPedido() {
 
             string linhaCompleta = "";
 
@@ -67,13 +67,7 @@ namespace Projeto2
             linhaCompleta += this.getFornecedor().getCodigo() + ";";
             linhaCompleta += CarrinhoDeCompra();
 
-            if (ValidarPessoa(this.getFornecedor())) {
-
-                aPD.EscreverNoArquivo(linhaCompleta);
-                return true;
-            }
-
-            return false;
+            aPD.EscreverNoArquivo(linhaCompleta);
         }
 
         public override void ConfirmarPedido(){
@@ -177,35 +171,36 @@ namespace Projeto2
 
                 int codigoFornecedor = Int32.Parse(linha.Split(';')[2]);
 
-                CarrinhoDeCompra carrinhoDeCompra = new CarrinhoDeCompra();
-
-                Produto produto = new Produto();
-
-                ItemDeCompra itemDeCompra = new ItemDeCompra();
-
-                for (int i = 3; i < tamanho.Count - 1; i++){
-                    switch(i % 2){
-                        case 0:
-                        int qtd =  Int32.Parse(linha.Split(';')[i]);
-                        itemDeCompra = new ItemDeCompra(produto,qtd);
-                        carrinhoDeCompra.AdicionarItem(itemDeCompra);
-                        break;
-                        default:
-                        produto = Produto.PegarDadosDoProduto(Int32.Parse(linha.Split(';')[i]));
-                        break;
-                    }
-                }
-
                 Pessoa fornecedor = Pessoa.PegarDadosDaPessoa(codigoFornecedor);
 
-                PedidoDeCompra pedido = new PedidoDeCompra(codigo,confirmado,carrinhoDeCompra,fornecedor);
+                if(this.ValidarPessoa(fornecedor)){
 
-                return pedido;
+                    CarrinhoDeCompra carrinhoDeCompra = new CarrinhoDeCompra();
+
+                    Produto produto = new Produto();
+
+                    ItemDeCompra itemDeCompra = new ItemDeCompra();
+
+                    for (int i = 3; i < tamanho.Count - 1; i++){
+                        switch(i % 2){
+                            case 0:
+                            int qtd =  Int32.Parse(linha.Split(';')[i]);
+                            itemDeCompra = new ItemDeCompra(produto,qtd);
+                            carrinhoDeCompra.AdicionarItem(itemDeCompra);
+                            break;
+                            default:
+                            produto = Produto.PegarDadosDoProduto(Int32.Parse(linha.Split(';')[i]));
+                            break;
+                        }
+                    }
+
+                    PedidoDeCompra pedido = new PedidoDeCompra(codigo,confirmado,carrinhoDeCompra,fornecedor);
+
+                    return pedido;
+                }
             }
 
             return new PedidoDeCompra();
         }
-
-
     }
 }
